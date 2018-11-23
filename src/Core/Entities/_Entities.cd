@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="NClass.Core.ClassType">
+    <Position X="14" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAABwABAAIAACAAACACAAAAQKRABIQQAAABAEAAQBU=</HashCode>
+      <FileName>Entities\ClassType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NClass.Core.SingleInharitanceType">
+    <Position X="11.25" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEQAAAAKAAAAAAAgAAAAAAAAAAAABAgQAQgA=</HashCode>
+      <FileName>Entities\SingleInharitanceType.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NClass.Core.CompositeType">
+    <Position X="8.5" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>EICCAAEGoCAAIiRBICgQIAAAALRogIYYKEApCMAAgAA=</HashCode>
+      <FileName>Entities\CompositeType.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NClass.Core.TypeBase">
+    <Position X="5.5" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAFAFAEAagSAAGCEAAAAAAQAQCBEBAAAQAAAAICAYAE=</HashCode>
+      <FileName>Entities\TypeBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NClass.Core.LanguageElement">
+    <Position X="3" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAEAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAEAAAAA=</HashCode>
+      <FileName>LanguageElement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NClass.Core.Element">
+    <Position X="0.5" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAEAABBAAAAAAAAAIAAEAAAABCAABQAA=</HashCode>
+      <FileName>Element.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9.16" />
+</ClassDiagram>
