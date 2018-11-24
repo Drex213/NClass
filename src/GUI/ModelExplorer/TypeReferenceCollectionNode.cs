@@ -12,6 +12,8 @@ namespace NClass.GUI.ModelExplorer
         public TypeReferenceCollectionNode(ObjectReferenceCollection collection)
         {
             Text = collection.Name;
+            ImageKey = "folder";
+            SelectedImageKey = "folder";
             ObjectReferenceCollection = collection;
             AddObjectNodes(collection);
         }

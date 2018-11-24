@@ -14,6 +14,8 @@ namespace NClass.GUI.ModelExplorer
         public ObjectReferencesNode(Project project)
         {
             Text = Strings.ObjectReferences;
+            ImageKey = "folders-stack";
+            SelectedImageKey = "folders-stack";
             AddObjectReferenceNodes(project);
         }
 
