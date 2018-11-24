@@ -66,14 +66,14 @@
       </Relationship>
     </Relationships>
   </ProjectItem>
-  <TypeCollections>
-    <TypeCollection language="CSharp">
-      <TypeReference>
+  <ObjectReferences>
+    <ObjectReferenceCollection collectionType="LanguageTypes" language="CSharp">
+      <ObjectReference>
         <Name>bool</Name>
-      </TypeReference>
-      <TypeReference>
+      </ObjectReference>
+      <ObjectReference>
         <Name>byte</Name>
-      </TypeReference>
-    </TypeCollection>
-  </TypeCollections>
+      </ObjectReference>
+    </ObjectReferenceCollection>
+  </ObjectReferences>
 </Project>

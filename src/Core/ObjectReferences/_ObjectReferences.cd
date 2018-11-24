@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="NClass.Core.ObjectReferences.ObjectReference">
+    <Position X="5.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ObjectReferences\ObjectReference.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NClass.Core.ObjectReferences.ObjectReferenceCollection">
+    <Position X="1.75" Y="2.5" Width="2" />
+    <NestedTypes>
+      <Enum Name="NClass.Core.ObjectReferences.ObjectReferenceCollection.CollectionType" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>ObjectReferences\ObjectReferenceCollection.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAABACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ObjectReferences\ObjectReferenceCollection.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="ObjectReferences" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="NClass.Core.ObjectReferences.TypeReferenceCollection">
+    <Position X="1.75" Y="5.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ObjectReferences\TypeReferenceCollection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9.16" />
+</ClassDiagram>

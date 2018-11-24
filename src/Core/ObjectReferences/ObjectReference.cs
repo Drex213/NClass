@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -6,9 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
-namespace NClass.Core.TypeCollections
+namespace NClass.Core.ObjectReferences
 {
-    public class TypeReference
+    public class ObjectReference
     {
         public string Name { get; set; }
 
@@ -16,7 +16,7 @@ namespace NClass.Core.TypeCollections
         {
             var nameNode = node["Name"];
             if (nameNode == null)
-                throw new InvalidDataException("TypeReference's Name element is missing.");
+                throw new InvalidDataException("ObjectReference's Name element is missing.");
             Name = nameNode.InnerText;
         }
     }

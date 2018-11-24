@@ -6,26 +6,25 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
-namespace NClass.Core.TypeCollections
+namespace NClass.Core.ObjectReferences
 {
-    public class TypeCollection
+    public class TypeReferenceCollection : ObjectReferenceCollection
     {
         public Language Language { get; set; }
 
-        public List<TypeReference> TypeReferences { get; set; } = new List<TypeReference>();
-
-        public void Deserialize(XmlElement node)
+        public override void Deserialize(XmlElement node)
         {
             XmlAttribute languageAttribute = node.Attributes["language"];
+
             if (languageAttribute == null)
-                throw new InvalidDataException("TypeCollection's language attribute is missing.");
+                throw new InvalidDataException("TypeReferenceCollection's language attribute is missing.");
             Language = Language.GetLanguage(languageAttribute.InnerText);
 
-            foreach (XmlElement typeReferenceElement in node.GetElementsByTagName("TypeReference"))
+            foreach (XmlElement typeReferenceElement in node.GetElementsByTagName("ObjectReference"))
             {
-                var reference = new TypeReference();
+                var reference = new ObjectReference();
                 reference.Deserialize(typeReferenceElement);
-                TypeReferences.Add(reference);
+                ObjectReferences.Add(reference);
             }
         }
     }

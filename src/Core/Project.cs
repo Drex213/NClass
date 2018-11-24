@@ -19,7 +19,7 @@ using System.Collections.Generic;
 using System.Xml;
 using System.IO;
 using NClass.Translations;
-using NClass.Core.TypeCollections;
+using NClass.Core.ObjectReferences;
 
 namespace NClass.Core
 {
@@ -28,7 +28,7 @@ namespace NClass.Core
 		string name;
 		FileInfo projectFile = null;
 		List<IProjectItem> items = new List<IProjectItem>();
-        List<TypeCollection> typeCollections = new List<TypeCollection>();
+        List<ObjectReferenceCollection> objectReferenceCollections = new List<ObjectReferenceCollection>();
 		bool isDirty = false;
 		bool isUntitled = true;
 		bool isReadOnly = false;
@@ -155,9 +155,9 @@ namespace NClass.Core
 			get { return items.Count; }
 		}
 
-        public IEnumerable<TypeCollection> TypeCollections
+        public IEnumerable<ObjectReferenceCollection> ObjectReferenceCollections
         {
-            get { return typeCollections; }
+            get { return objectReferenceCollections; }
         }
 
         public bool IsEmpty
@@ -400,7 +400,7 @@ namespace NClass.Core
 			name = nameElement.InnerText;
 
             DeserializeProjectItems(node);
-            DeserializeTypeCollections(node);
+            DeserializeObjectReferenceCollections(node);
 		}
 
         private void DeserializeProjectItems(XmlElement node)
@@ -439,17 +439,23 @@ namespace NClass.Core
             }
         }
 
-        private void DeserializeTypeCollections(XmlElement node)
+        private void DeserializeObjectReferenceCollections(XmlElement node)
         {
-            var typeCollectionsElement = node["TypeCollections"];
-            if (typeCollectionsElement == null)
-                throw new InvalidDataException("TypeCollections is missing.");
+            var objectReferenceCollectionsElement = node["ObjectReferences"];
+            if (objectReferenceCollectionsElement == null)
+                throw new InvalidDataException("ObjectReferences is missing.");
 
-            foreach (XmlElement collectionElement in typeCollectionsElement.GetElementsByTagName("TypeCollection"))
+            foreach (XmlElement collectionElement in objectReferenceCollectionsElement.GetElementsByTagName("ObjectReferenceCollection"))
             {
-                var collection = new TypeCollection();
-                collection.Deserialize(collectionElement);
-                typeCollections.Add(collection);
+                var collectionTypeText = collectionElement.Attributes["collectionType"].InnerText;
+                var collectionType = (ObjectReferenceCollection.CollectionType)Enum.Parse(typeof(ObjectReferenceCollection.CollectionType), collectionTypeText);
+
+                if (collectionType == ObjectReferenceCollection.CollectionType.LanguageTypes)
+                {
+                    var collection = new TypeReferenceCollection();
+                    collection.Deserialize(collectionElement);
+                    objectReferenceCollections.Add(collection);
+                }
             }
         }
 
