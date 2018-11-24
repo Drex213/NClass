@@ -74,6 +74,45 @@
       <ObjectReference>
         <Name>byte</Name>
       </ObjectReference>
+      <ObjectReference>
+        <Name>sbyte</Name>
+      </ObjectReference>
+      <ObjectReference>
+        <Name>char</Name>
+      </ObjectReference>
+      <ObjectReference>
+        <Name>decimal</Name>
+      </ObjectReference>
+      <ObjectReference>
+        <Name>double</Name>
+      </ObjectReference>
+      <ObjectReference>
+        <Name>float</Name>
+      </ObjectReference>
+      <ObjectReference>
+        <Name>int</Name>
+      </ObjectReference>
+      <ObjectReference>
+        <Name>uint</Name>
+      </ObjectReference>
+      <ObjectReference>
+        <Name>long</Name>
+      </ObjectReference>
+      <ObjectReference>
+        <Name>ulong</Name>
+      </ObjectReference>
+      <ObjectReference>
+        <Name>object</Name>
+      </ObjectReference>
+      <ObjectReference>
+        <Name>short</Name>
+      </ObjectReference>
+      <ObjectReference>
+        <Name>ushort</Name>
+      </ObjectReference>
+      <ObjectReference>
+        <Name>string</Name>
+      </ObjectReference>
     </ObjectReferenceCollection>
   </ObjectReferences>
 </Project>

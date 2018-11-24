@@ -16,6 +16,8 @@ namespace NClass.Core.ObjectReferences
 
         public abstract void Deserialize(XmlElement node);
 
+        public abstract void Serialize(XmlElement node);
+
         public enum CollectionType
         {
             LanguageTypes

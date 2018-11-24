@@ -30,5 +30,24 @@ namespace NClass.Core.ObjectReferences
                 ObjectReferences.Add(reference);
             }
         }
+
+        public override void Serialize(XmlElement node)
+        {
+            XmlAttribute collectionTypeAttribute = node.OwnerDocument.CreateAttribute("collectionType");
+            collectionTypeAttribute.InnerText = CollectionType.LanguageTypes.ToString();
+            node.Attributes.Append(collectionTypeAttribute);
+
+            XmlAttribute languageAttribute = node.OwnerDocument.CreateAttribute("language");
+            languageAttribute.InnerText = Language.AssemblyName;
+            node.Attributes.Append(languageAttribute);
+
+            foreach (ObjectReference reference in ObjectReferences)
+            {
+                XmlElement referenceElement = node.OwnerDocument.CreateElement("ObjectReference");
+                reference.Serialize(referenceElement);
+                node.AppendChild(referenceElement);
+            }
+            
+        }
     }
 }

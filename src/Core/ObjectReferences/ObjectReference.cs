@@ -19,5 +19,12 @@ namespace NClass.Core.ObjectReferences
                 throw new InvalidDataException("ObjectReference's Name element is missing.");
             Name = nameNode.InnerText;
         }
+
+        public void Serialize(XmlElement node)
+        {
+            XmlElement nameElement = node.OwnerDocument.CreateElement("Name");
+            nameElement.InnerText = Name;
+            node.AppendChild(nameElement);
+        }
     }
 }

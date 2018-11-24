@@ -369,23 +369,42 @@ namespace NClass.Core
 			nameElement.InnerText = this.Name;
 			node.AppendChild(nameElement);
 
-			foreach (IProjectItem item in Items)
-			{
-				XmlElement itemElement = node.OwnerDocument.CreateElement("ProjectItem");
-				item.Serialize(itemElement);
-
-				Type type = item.GetType();
-				XmlAttribute typeAttribute = node.OwnerDocument.CreateAttribute("type");
-				typeAttribute.InnerText = type.FullName;
-				itemElement.Attributes.Append(typeAttribute);
-
-				XmlAttribute assemblyAttribute = node.OwnerDocument.CreateAttribute("assembly");
-				assemblyAttribute.InnerText = type.Assembly.FullName;
-				itemElement.Attributes.Append(assemblyAttribute);
-
-				node.AppendChild(itemElement);
-			}
+            SerializeProjectItems(node);
+            SerializeObjectReferenceCollections(node);
 		}
+
+        private void SerializeProjectItems(XmlElement node)
+        {
+            foreach (IProjectItem item in Items)
+            {
+                XmlElement itemElement = node.OwnerDocument.CreateElement("ProjectItem");
+                item.Serialize(itemElement);
+
+                Type type = item.GetType();
+                XmlAttribute typeAttribute = node.OwnerDocument.CreateAttribute("type");
+                typeAttribute.InnerText = type.FullName;
+                itemElement.Attributes.Append(typeAttribute);
+
+                XmlAttribute assemblyAttribute = node.OwnerDocument.CreateAttribute("assembly");
+                assemblyAttribute.InnerText = type.Assembly.FullName;
+                itemElement.Attributes.Append(assemblyAttribute);
+
+                node.AppendChild(itemElement);
+            }
+        }
+
+        private void SerializeObjectReferenceCollections(XmlElement node)
+        {
+            XmlElement referencesElement = node.OwnerDocument.CreateElement("ObjectReferences");
+            node.AppendChild(referencesElement);
+
+            foreach (ObjectReferenceCollection collection in ObjectReferenceCollections)
+            {
+                XmlElement collectionElement = node.OwnerDocument.CreateElement("ObjectReferenceCollection");
+                collection.Serialize(collectionElement);
+                referencesElement.AppendChild(collectionElement);
+            }
+        }
 
 		/// <exception cref="InvalidDataException">
 		/// The save format is corrupt and could not be loaded.
