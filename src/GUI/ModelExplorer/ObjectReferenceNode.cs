@@ -12,6 +12,8 @@ namespace NClass.GUI.ModelExplorer
         public ObjectReferenceNode(ObjectReference objectReference)
         {
             Text = objectReference.Name;
+            ImageKey = "type-builtin";
+            SelectedImageKey = "type-builtin";
         }
     }
 }
