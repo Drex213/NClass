@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.Xml;
 using System.IO;
 using NClass.Translations;
+using NClass.Core.ObjectReferences;
 
 namespace NClass.Core
 {
@@ -27,6 +28,7 @@ namespace NClass.Core
 		string name;
 		FileInfo projectFile = null;
 		List<IProjectItem> items = new List<IProjectItem>();
+        List<ObjectReferenceCollection> objectReferenceCollections = new List<ObjectReferenceCollection>();
 		bool isDirty = false;
 		bool isUntitled = true;
 		bool isReadOnly = false;
@@ -37,6 +39,7 @@ namespace NClass.Core
 		public event EventHandler FileStateChanged;
 		public event ProjectItemEventHandler ItemAdded;
 		public event ProjectItemEventHandler ItemRemoved;
+        public event EventHandler ObjectReferenceCollectionsChanged;
 
 		public Project()
 		{
@@ -153,7 +156,12 @@ namespace NClass.Core
 			get { return items.Count; }
 		}
 
-		public bool IsEmpty
+        public List<ObjectReferenceCollection> ObjectReferenceCollections
+        {
+            get { return objectReferenceCollections; }
+        }
+
+        public bool IsEmpty
 		{
 			get { return ItemCount == 0; }
 		}
@@ -196,6 +204,7 @@ namespace NClass.Core
 			item.Modified += new EventHandler(item_Modified);
 			items.Add(item);
 
+            OnObjectReferenceCollectionChanged(EventArgs.Empty);
 			OnItemAdded(new ProjectItemEventArgs(item));
 			OnModified(EventArgs.Empty);
 		}
@@ -362,23 +371,42 @@ namespace NClass.Core
 			nameElement.InnerText = this.Name;
 			node.AppendChild(nameElement);
 
-			foreach (IProjectItem item in Items)
-			{
-				XmlElement itemElement = node.OwnerDocument.CreateElement("ProjectItem");
-				item.Serialize(itemElement);
-
-				Type type = item.GetType();
-				XmlAttribute typeAttribute = node.OwnerDocument.CreateAttribute("type");
-				typeAttribute.InnerText = type.FullName;
-				itemElement.Attributes.Append(typeAttribute);
-
-				XmlAttribute assemblyAttribute = node.OwnerDocument.CreateAttribute("assembly");
-				assemblyAttribute.InnerText = type.Assembly.FullName;
-				itemElement.Attributes.Append(assemblyAttribute);
-
-				node.AppendChild(itemElement);
-			}
+            SerializeProjectItems(node);
+            SerializeObjectReferenceCollections(node);
 		}
+
+        private void SerializeProjectItems(XmlElement node)
+        {
+            foreach (IProjectItem item in Items)
+            {
+                XmlElement itemElement = node.OwnerDocument.CreateElement("ProjectItem");
+                item.Serialize(itemElement);
+
+                Type type = item.GetType();
+                XmlAttribute typeAttribute = node.OwnerDocument.CreateAttribute("type");
+                typeAttribute.InnerText = type.FullName;
+                itemElement.Attributes.Append(typeAttribute);
+
+                XmlAttribute assemblyAttribute = node.OwnerDocument.CreateAttribute("assembly");
+                assemblyAttribute.InnerText = type.Assembly.FullName;
+                itemElement.Attributes.Append(assemblyAttribute);
+
+                node.AppendChild(itemElement);
+            }
+        }
+
+        private void SerializeObjectReferenceCollections(XmlElement node)
+        {
+            XmlElement referencesElement = node.OwnerDocument.CreateElement("ObjectReferences");
+            node.AppendChild(referencesElement);
+
+            foreach (ObjectReferenceCollection collection in ObjectReferenceCollections)
+            {
+                XmlElement collectionElement = node.OwnerDocument.CreateElement("ObjectReferenceCollection");
+                collection.Serialize(collectionElement);
+                referencesElement.AppendChild(collectionElement);
+            }
+        }
 
 		/// <exception cref="InvalidDataException">
 		/// The save format is corrupt and could not be loaded.
@@ -392,39 +420,65 @@ namespace NClass.Core
 				throw new InvalidDataException("Project's name cannot be empty.");
 			name = nameElement.InnerText;
 
-			foreach (XmlElement itemElement in node.GetElementsByTagName("ProjectItem"))
-			{
-				XmlAttribute typeAttribute = itemElement.Attributes["type"];
-				XmlAttribute assemblyAttribute = itemElement.Attributes["assembly"];
-
-				if (typeAttribute == null || assemblyAttribute == null)
-					throw new InvalidDataException("ProjectItem's type or assembly name is missing.");
-
-				string typeName = typeAttribute.InnerText;
-				string assemblyName = assemblyAttribute.InnerText;
-
-				try
-				{
-					Assembly assembly = Assembly.Load(assemblyName);
-					IProjectItem projectItem = (IProjectItem) assembly.CreateInstance(
-						typeName, false,
-						BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic,
-						null, null, null, null);
-
-					projectItem.Deserialize(itemElement);
-					projectItem.Clean();
-					Add(projectItem);
-				}
-				catch (InvalidDataException)
-				{
-					throw;
-				}
-				catch (Exception ex)
-				{
-					throw new InvalidDataException("Invalid type or assembly of ProjectItem.", ex);
-				}
-			}
+            DeserializeObjectReferenceCollections(node);
+            DeserializeProjectItems(node);
 		}
+
+        private void DeserializeProjectItems(XmlElement node)
+        {
+            foreach (XmlElement itemElement in node.GetElementsByTagName("ProjectItem"))
+            {
+                XmlAttribute typeAttribute = itemElement.Attributes["type"];
+                XmlAttribute assemblyAttribute = itemElement.Attributes["assembly"];
+
+                if (typeAttribute == null || assemblyAttribute == null)
+                    throw new InvalidDataException("ProjectItem's type or assembly name is missing.");
+
+                string typeName = typeAttribute.InnerText;
+                string assemblyName = assemblyAttribute.InnerText;
+
+                try
+                {
+                    Assembly assembly = Assembly.Load(assemblyName);
+                    IProjectItem projectItem = (IProjectItem)assembly.CreateInstance(
+                        typeName, false,
+                        BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic,
+                        null, null, null, null);
+
+                    projectItem.Deserialize(itemElement);
+                    projectItem.Clean();
+                    Add(projectItem);
+                }
+                catch (InvalidDataException)
+                {
+                    throw;
+                }
+                catch (Exception ex)
+                {
+                    throw new InvalidDataException("Invalid type or assembly of ProjectItem.", ex);
+                }
+            }
+        }
+
+        private void DeserializeObjectReferenceCollections(XmlElement node)
+        {
+            var objectReferenceCollectionsElement = node["ObjectReferences"];
+            if (objectReferenceCollectionsElement == null)
+                throw new InvalidDataException("ObjectReferences is missing.");
+
+            foreach (XmlElement collectionElement in objectReferenceCollectionsElement.GetElementsByTagName("ObjectReferenceCollection"))
+            {
+                var collectionTypeText = collectionElement.Attributes["collectionType"].InnerText;
+                var collectionType = (ObjectReferenceCollection.CollectionType)Enum.Parse(typeof(ObjectReferenceCollection.CollectionType), collectionTypeText);
+
+                if (collectionType == ObjectReferenceCollection.CollectionType.LanguageTypes)
+                {
+                    var collection = new TypeReferenceCollection();
+                    collection.Deserialize(collectionElement);
+                    objectReferenceCollections.Add(collection);
+                }
+            }
+        }
 
 		private void OnModified(EventArgs e)
 		{
@@ -453,6 +507,12 @@ namespace NClass.Core
 			if (ItemRemoved != null)
 				ItemRemoved(this, e);
 		}
+
+        private void OnObjectReferenceCollectionChanged(EventArgs e)
+        {
+            if (ObjectReferenceCollectionsChanged != null)
+                ObjectReferenceCollectionsChanged(this, e);
+        }
 
 		private void OnFileStateChanged(EventArgs e)
 		{

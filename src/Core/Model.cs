@@ -24,6 +24,7 @@ namespace NClass.Core
 {
 	public abstract class Model : IModifiable
 	{
+        private Project project;
 		protected List<IEntity> entities = new List<IEntity>();
 		protected List<Relationship> relationships = new List<Relationship>();
 	    private bool isDirty = false;
@@ -37,7 +38,16 @@ namespace NClass.Core
 		public event SerializeEventHandler Serializing;
 		public event SerializeEventHandler Deserializing;
 
-	    public Project Project { get; set; }
+	    public Project Project {
+            get => project;
+            set
+            {
+                project = value;
+                if (project != null)
+                    AddObjectReferenceCollections();
+            }
+        }
+
 	    private string name;
 	    public string Name {
 	        get => name ?? Strings.Untitled;
@@ -253,5 +263,7 @@ namespace NClass.Core
 			isDirty = true;
             Modified?.Invoke(this, e);
         }
-	}
+
+        protected abstract void AddObjectReferenceCollections();
+    }
 }

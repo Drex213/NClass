@@ -24,6 +24,7 @@ using NClass.Translations;
 using NClass.DiagramEditor;
 using NClass.DiagramEditor.ClassDiagram;
 using NClass.DiagramEditor.Diagrams;
+using NClass.Core.ObjectReferences;
 
 namespace NClass.GUI.ModelExplorer
 {
@@ -61,10 +62,12 @@ namespace NClass.GUI.ModelExplorer
 			this.ImageKey = "project";
 			this.SelectedImageKey = "project";
 
+            AddObjectReferencesNode(project);
 			AddProjectItemNodes(project);
 			project.Renamed += new EventHandler(project_Renamed);
 			project.ItemAdded += new ProjectItemEventHandler(project_ItemAdded);
 			project.ItemRemoved += new ProjectItemEventHandler(project_ItemRemoved);
+            project.ObjectReferenceCollectionsChanged += new EventHandler(project_ObjectReferenceCollectionsChanged);
 		}
 
 		public Project Project
@@ -131,7 +134,22 @@ namespace NClass.GUI.ModelExplorer
 			}
 		}
 
-		private void RemoveProjectItemNode(IProjectItem projectItem)
+        private void AddObjectReferencesNode(Project project)
+        {
+            var node = new ObjectReferencesNode(project);
+            Nodes.Add(node);
+        }
+
+        private void RefreshObjectReferencesNode()
+        {
+            var referencesNode = Nodes.Find(nameof(ObjectReferencesNode), false)[0];
+            var referencesNodeIndex = Nodes.IndexOf(referencesNode);
+            Nodes.RemoveAt(referencesNodeIndex);
+            var newReferencesNode = new ObjectReferencesNode(Project);
+            Nodes.Insert(referencesNodeIndex, newReferencesNode);
+        }
+
+        private void RemoveProjectItemNode(IProjectItem projectItem)
 		{
 			foreach (ProjectItemNode node in Nodes)
 			{
@@ -173,7 +191,12 @@ namespace NClass.GUI.ModelExplorer
 			}
 		}
 
-		public override void BeforeDelete()
+        private void project_ObjectReferenceCollectionsChanged(object sender, EventArgs e)
+        {
+            RefreshObjectReferencesNode();
+        }
+
+        public override void BeforeDelete()
 		{
 			project.Renamed -= new EventHandler(project_Renamed);
 			project.ItemAdded -= new ProjectItemEventHandler(project_ItemAdded);

@@ -73,6 +73,7 @@
     <Compile Include="Entities\EntityType.cs" />
     <Compile Include="Members\MemberType.cs" />
     <Compile Include="Models\ClassModel.cs" />
+    <Compile Include="ObjectReferences\TypeReferenceCollection.cs" />
     <Compile Include="RelationshipEventArgs.cs" />
     <Compile Include="Relationships\AssociationType.cs" />
     <Compile Include="Relationships\RelationshipType.cs" />
@@ -130,6 +131,8 @@
     <Compile Include="Entities\StructureType.cs" />
     <Compile Include="Relationships\Relationship.cs" />
     <Compile Include="LanguageElement.cs" />
+    <Compile Include="ObjectReferences\ObjectReferenceCollection.cs" />
+    <Compile Include="ObjectReferences\ObjectReference.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -166,6 +169,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Entities\_Entities.cd" />
+    <None Include="ObjectReferences\_ObjectReferences.cd" />
+    <None Include="_Core.cd" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

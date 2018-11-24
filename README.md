@@ -37,3 +37,8 @@ Please bear in mind that currently the response times on Slack are slow.
 ----
 
 NClass is totally free and licensed under the [GNU General Public License](http://nclass.sourceforge.net/).
+
+Attributions
+----
+
+Fugue Icons 3.5.6 - Icons by [Yusuke Kamiyamane](http://p.yusukekamiyamane.com/).

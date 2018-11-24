@@ -239,12 +239,12 @@ namespace NClass.Java
 			get { return validOperationModifiers; }
 		}
 
-		protected override string[] ReservedNames
+        protected override string[] ReservedNames
 		{
 			get { return reservedNames; }
 		}
 
-		protected override string[] TypeKeywords
+		public override string[] TypeKeywords
 		{
 			get { return typeKeywords; }
 		}
