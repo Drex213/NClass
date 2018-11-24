@@ -10,6 +10,15 @@ namespace NClass.Core.ObjectReferences
 {
     public class ObjectReference
     {
+        public ObjectReference()
+        {
+        }
+
+        public ObjectReference(string name)
+        {
+            Name = name;
+        }
+
         public string Name { get; set; }
 
         public void Deserialize(XmlElement node)

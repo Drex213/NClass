@@ -11,6 +11,17 @@ namespace NClass.Core.ObjectReferences
 {
     public class TypeReferenceCollection : ObjectReferenceCollection
     {
+        public TypeReferenceCollection()
+        {
+        }
+
+        public TypeReferenceCollection(Language language)
+        {
+            Language = language;
+            var references = language.TypeKeywords.Select(rn => new ObjectReference(rn));
+            ObjectReferences.AddRange(references);
+        }
+
         public Language Language { get; set; }
 
         public override string Name => $"{Strings.LanguageTypes} ({Language.Name})";

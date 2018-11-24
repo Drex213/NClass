@@ -97,12 +97,12 @@ namespace NClass.Core
 			get;
 		}
 
-		protected abstract string[] ReservedNames
+        protected abstract string[] ReservedNames
 		{
 			get;
 		}
 
-		protected abstract string[] TypeKeywords
+		public abstract string[] TypeKeywords
 		{
 			get;
 		}

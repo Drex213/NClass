@@ -39,6 +39,7 @@ namespace NClass.Core
 		public event EventHandler FileStateChanged;
 		public event ProjectItemEventHandler ItemAdded;
 		public event ProjectItemEventHandler ItemRemoved;
+        public event EventHandler ObjectReferenceCollectionsChanged;
 
 		public Project()
 		{
@@ -203,6 +204,7 @@ namespace NClass.Core
 			item.Modified += new EventHandler(item_Modified);
 			items.Add(item);
 
+            OnObjectReferenceCollectionChanged(EventArgs.Empty);
 			OnItemAdded(new ProjectItemEventArgs(item));
 			OnModified(EventArgs.Empty);
 		}
@@ -418,8 +420,8 @@ namespace NClass.Core
 				throw new InvalidDataException("Project's name cannot be empty.");
 			name = nameElement.InnerText;
 
-            DeserializeProjectItems(node);
             DeserializeObjectReferenceCollections(node);
+            DeserializeProjectItems(node);
 		}
 
         private void DeserializeProjectItems(XmlElement node)
@@ -505,6 +507,12 @@ namespace NClass.Core
 			if (ItemRemoved != null)
 				ItemRemoved(this, e);
 		}
+
+        private void OnObjectReferenceCollectionChanged(EventArgs e)
+        {
+            if (ObjectReferenceCollectionsChanged != null)
+                ObjectReferenceCollectionsChanged(this, e);
+        }
 
 		private void OnFileStateChanged(EventArgs e)
 		{

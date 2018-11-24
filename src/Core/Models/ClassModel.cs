@@ -15,7 +15,9 @@
 
 using System;
 using System.IO;
+using System.Linq;
 using System.Xml;
+using NClass.Core.ObjectReferences;
 using NClass.Translations;
 
 namespace NClass.Core.Models
@@ -26,7 +28,6 @@ namespace NClass.Core.Models
 
         public ClassModel()
         {
-            
         }
 
         /// <exception cref="ArgumentNullException">
@@ -331,6 +332,18 @@ namespace NClass.Core.Models
             node.AppendChild(languageElement);
 
             base.Serialize(node);
+        }
+
+        protected override void AddObjectReferenceCollections()
+        {
+            var isAlreadyCreated = Project.ObjectReferenceCollections
+                .Any(c => (c is TypeReferenceCollection) && (c as TypeReferenceCollection).Language == language);
+
+            if (isAlreadyCreated)
+                return;
+
+            var collection = new TypeReferenceCollection(language);
+            Project.ObjectReferenceCollections.Add(collection);
         }
     }
 }
