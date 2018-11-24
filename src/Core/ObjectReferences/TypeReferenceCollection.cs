@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NClass.Translations;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,6 +12,8 @@ namespace NClass.Core.ObjectReferences
     public class TypeReferenceCollection : ObjectReferenceCollection
     {
         public Language Language { get; set; }
+
+        public override string Name => $"{Strings.LanguageTypes} ({Language.Name})";
 
         public override void Deserialize(XmlElement node)
         {

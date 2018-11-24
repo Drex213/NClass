@@ -1405,6 +1405,15 @@ namespace NClass.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Types.
+        /// </summary>
+        public static string LanguageTypes {
+            get {
+                return ResourceManager.GetString("LanguageTypes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Load.
         /// </summary>
         public static string Load {
@@ -2526,6 +2535,15 @@ namespace NClass.Translations {
         public static string NoUpdates {
             get {
                 return ResourceManager.GetString("NoUpdates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Objects.
+        /// </summary>
+        public static string ObjectReferences {
+            get {
+                return ResourceManager.GetString("ObjectReferences", resourceCulture);
             }
         }
         

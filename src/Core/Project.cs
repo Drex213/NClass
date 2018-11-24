@@ -155,7 +155,7 @@ namespace NClass.Core
 			get { return items.Count; }
 		}
 
-        public IEnumerable<ObjectReferenceCollection> ObjectReferenceCollections
+        public List<ObjectReferenceCollection> ObjectReferenceCollections
         {
             get { return objectReferenceCollections; }
         }

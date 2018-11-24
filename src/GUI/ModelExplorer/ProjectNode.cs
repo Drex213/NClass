@@ -24,6 +24,7 @@ using NClass.Translations;
 using NClass.DiagramEditor;
 using NClass.DiagramEditor.ClassDiagram;
 using NClass.DiagramEditor.Diagrams;
+using NClass.Core.ObjectReferences;
 
 namespace NClass.GUI.ModelExplorer
 {
@@ -62,6 +63,7 @@ namespace NClass.GUI.ModelExplorer
 			this.SelectedImageKey = "project";
 
 			AddProjectItemNodes(project);
+            AddObjectReferencesNode(project);
 			project.Renamed += new EventHandler(project_Renamed);
 			project.ItemAdded += new ProjectItemEventHandler(project_ItemAdded);
 			project.ItemRemoved += new ProjectItemEventHandler(project_ItemRemoved);
@@ -130,6 +132,12 @@ namespace NClass.GUI.ModelExplorer
 				}
 			}
 		}
+
+        private void AddObjectReferencesNode(Project project)
+        {
+            var node = new ObjectReferencesNode(project);
+            Nodes.Add(node);
+        }
 
 		private void RemoveProjectItemNode(IProjectItem projectItem)
 		{

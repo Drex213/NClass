@@ -12,6 +12,8 @@ namespace NClass.Core.ObjectReferences
     {
         public List<ObjectReference> ObjectReferences { get; set; } = new List<ObjectReference>();
 
+        public abstract string Name { get; }
+
         public abstract void Deserialize(XmlElement node);
 
         public enum CollectionType

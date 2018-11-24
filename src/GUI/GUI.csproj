@@ -74,6 +74,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CrashHandler.cs" />
+    <Compile Include="ModelExplorer\ObjectReferenceCollectionNode.cs" />
+    <Compile Include="ModelExplorer\ObjectReferenceNode.cs" />
+    <Compile Include="ModelExplorer\ObjectReferencesNode.cs" />
+    <Compile Include="ModelExplorer\TypeReferenceCollectionNode.cs" />
     <Compile Include="SimplePlugin.cs" />
     <Compile Include="NClassEnvironment.cs" />
     <Compile Include="Plugin.cs" />

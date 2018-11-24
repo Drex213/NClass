@@ -1155,4 +1155,12 @@ Do you want to download the framework now?</value>
     <value>The output directory is not empty, the previous files will be overwritten.
 Do you still want to continue?</value>
   </data>
+  <data name="ObjectReferences" xml:space="preserve">
+    <value>Objects</value>
+    <comment>ObjectRefrences TreeNode's displayed name</comment>
+  </data>
+  <data name="LanguageTypes" xml:space="preserve">
+    <value>Types</value>
+    <comment>TypeReferenceCollection TreeNode's displayed name</comment>
+  </data>
 </root>
