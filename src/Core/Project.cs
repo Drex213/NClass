@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.Xml;
 using System.IO;
 using NClass.Translations;
+using NClass.Core.TypeCollections;
 
 namespace NClass.Core
 {
@@ -27,6 +28,7 @@ namespace NClass.Core
 		string name;
 		FileInfo projectFile = null;
 		List<IProjectItem> items = new List<IProjectItem>();
+        List<TypeCollection> typeCollections = new List<TypeCollection>();
 		bool isDirty = false;
 		bool isUntitled = true;
 		bool isReadOnly = false;
@@ -153,7 +155,12 @@ namespace NClass.Core
 			get { return items.Count; }
 		}
 
-		public bool IsEmpty
+        public IEnumerable<TypeCollection> TypeCollections
+        {
+            get { return typeCollections; }
+        }
+
+        public bool IsEmpty
 		{
 			get { return ItemCount == 0; }
 		}
@@ -392,39 +399,59 @@ namespace NClass.Core
 				throw new InvalidDataException("Project's name cannot be empty.");
 			name = nameElement.InnerText;
 
-			foreach (XmlElement itemElement in node.GetElementsByTagName("ProjectItem"))
-			{
-				XmlAttribute typeAttribute = itemElement.Attributes["type"];
-				XmlAttribute assemblyAttribute = itemElement.Attributes["assembly"];
-
-				if (typeAttribute == null || assemblyAttribute == null)
-					throw new InvalidDataException("ProjectItem's type or assembly name is missing.");
-
-				string typeName = typeAttribute.InnerText;
-				string assemblyName = assemblyAttribute.InnerText;
-
-				try
-				{
-					Assembly assembly = Assembly.Load(assemblyName);
-					IProjectItem projectItem = (IProjectItem) assembly.CreateInstance(
-						typeName, false,
-						BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic,
-						null, null, null, null);
-
-					projectItem.Deserialize(itemElement);
-					projectItem.Clean();
-					Add(projectItem);
-				}
-				catch (InvalidDataException)
-				{
-					throw;
-				}
-				catch (Exception ex)
-				{
-					throw new InvalidDataException("Invalid type or assembly of ProjectItem.", ex);
-				}
-			}
+            DeserializeProjectItems(node);
+            DeserializeTypeCollections(node);
 		}
+
+        private void DeserializeProjectItems(XmlElement node)
+        {
+            foreach (XmlElement itemElement in node.GetElementsByTagName("ProjectItem"))
+            {
+                XmlAttribute typeAttribute = itemElement.Attributes["type"];
+                XmlAttribute assemblyAttribute = itemElement.Attributes["assembly"];
+
+                if (typeAttribute == null || assemblyAttribute == null)
+                    throw new InvalidDataException("ProjectItem's type or assembly name is missing.");
+
+                string typeName = typeAttribute.InnerText;
+                string assemblyName = assemblyAttribute.InnerText;
+
+                try
+                {
+                    Assembly assembly = Assembly.Load(assemblyName);
+                    IProjectItem projectItem = (IProjectItem)assembly.CreateInstance(
+                        typeName, false,
+                        BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic,
+                        null, null, null, null);
+
+                    projectItem.Deserialize(itemElement);
+                    projectItem.Clean();
+                    Add(projectItem);
+                }
+                catch (InvalidDataException)
+                {
+                    throw;
+                }
+                catch (Exception ex)
+                {
+                    throw new InvalidDataException("Invalid type or assembly of ProjectItem.", ex);
+                }
+            }
+        }
+
+        private void DeserializeTypeCollections(XmlElement node)
+        {
+            var typeCollectionsElement = node["TypeCollections"];
+            if (typeCollectionsElement == null)
+                throw new InvalidDataException("TypeCollections is missing.");
+
+            foreach (XmlElement collectionElement in typeCollectionsElement.GetElementsByTagName("TypeCollection"))
+            {
+                var collection = new TypeCollection();
+                collection.Deserialize(collectionElement);
+                typeCollections.Add(collection);
+            }
+        }
 
 		private void OnModified(EventArgs e)
 		{
