@@ -142,11 +142,8 @@ namespace NClass.GUI.ModelExplorer
 
         private void RefreshObjectReferencesNode()
         {
-            var referencesNode = Nodes.Find(nameof(ObjectReferencesNode), false)[0];
-            var referencesNodeIndex = Nodes.IndexOf(referencesNode);
-            Nodes.RemoveAt(referencesNodeIndex);
-            var newReferencesNode = new ObjectReferencesNode(Project);
-            Nodes.Insert(referencesNodeIndex, newReferencesNode);
+            var referencesNode = (ObjectReferencesNode)Nodes.Find(nameof(ObjectReferencesNode), false)[0];
+            referencesNode.Refresh();
         }
 
         private void RemoveProjectItemNode(IProjectItem projectItem)
