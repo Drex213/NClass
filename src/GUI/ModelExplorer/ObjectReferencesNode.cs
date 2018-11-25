@@ -16,11 +16,13 @@ namespace NClass.GUI.ModelExplorer
         public ObjectReferencesNode(Project project)
         {
             this.project = project;
-            Name = nameof(ObjectReferencesNode);
             Text = Strings.ObjectReferences;
             ImageKey = "folders-stack";
             SelectedImageKey = "folders-stack";
             AddObjectReferenceNodes(project);
+
+            project.ObjectReferenceCollectionAdded += Project_ObjectReferenceCollectionAdded;
+            project.ObjectReferenceCollectionRemoved += Project_ObjectReferenceCollectionRemoved;
         }
 
         private void AddObjectReferenceNodes(Project project)
@@ -35,64 +37,31 @@ namespace NClass.GUI.ModelExplorer
         {
             if (collection is TypeReferenceCollection)
             {
-                var node = new TypeReferenceCollectionNode(collection);
+                var node = new TypeReferenceCollectionNode(collection, project);
                 Nodes.Add(node);
             }
         }
 
-        public void Refresh()
+        private void RemoveObjectReferenceCollectionNode(ObjectReferenceCollection collection)
         {
-            RefreshRemovedCollections();
-
-            foreach (var collection in project.ObjectReferenceCollections)
+            foreach (ObjectReferenceCollectionNode node in Nodes)
             {
-                RefreshCollection(collection);
-            }
-
-            RefreshAddedCollections();
-        }
-
-        private void RefreshAddedCollections()
-        {
-            var previouslyExistedNodeNames = new HashSet<string>(Nodes.Cast<ObjectReferenceCollectionNode>().Select(c => c.Text));
-            foreach (var collection in project.ObjectReferenceCollections)
-            {
-                if (!previouslyExistedNodeNames.Contains(collection.Name))
-                    AddObjectReferenceCollectionNode(collection);
+                if (node.ObjectReferenceCollection == collection)
+                {
+                    Nodes.Remove(node);
+                    break;
+                }
             }
         }
 
-        private void RefreshRemovedCollections()
+        private void Project_ObjectReferenceCollectionAdded(object sender, ObjectReferenceEventArgs e)
         {
-            var stillExistingCollectionNames = new HashSet<string>(project.ObjectReferenceCollections.Select(c => c.Name));
-            for (int i = Nodes.Count - 1; i >= 0; i--)
-            {
-                if (!stillExistingCollectionNames.Contains(Nodes[i].Text))
-                    Nodes.RemoveAt(i);
-            }
+            AddObjectReferenceCollectionNode(e.Collection);
         }
 
-        private void RefreshCollection(ObjectReferenceCollection collection)
+        private void Project_ObjectReferenceCollectionRemoved(object sender, ObjectReferenceEventArgs e)
         {
-            var collectionNodes = Nodes.Cast<ObjectReferenceCollectionNode>().ToDictionary(n => n.Text, n => n);
-            if (!collectionNodes.ContainsKey(collection.Name))
-                return;
-
-            var collectionNode = collectionNodes[collection.Name];
-            var referenceNodes = collectionNode.Nodes.Cast<ObjectReferenceNode>().ToDictionary(n => n.Text, n => n);
-            var existingReferenceNames = new HashSet<string>(collection.ObjectReferences.Select(r => r.Name));
-
-            for (int i = collectionNode.Nodes.Count - 1; i >= 0; i--)
-            {
-                if (!existingReferenceNames.Contains(collectionNode.Nodes[i].Text))
-                    collectionNode.Nodes.RemoveAt(i);
-            }
-
-            foreach (var reference in collection.ObjectReferences)
-            {
-                if (!referenceNodes.ContainsKey(reference.Name))
-                    collectionNode.Nodes.Add(new ObjectReferenceNode(reference));
-            }
+            RemoveObjectReferenceCollectionNode(e.Collection);
         }
     }
 }

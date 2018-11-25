@@ -85,7 +85,9 @@ namespace NClass.DiagramEditor.ClassDiagram.Dialogs
 				return;
 
 			this.parent = parent;
+            UnregisterFromProjectEvents();
             this.project = project;
+            RegisterToProjectEvents();
             typeReferenceCollection = (TypeReferenceCollection)project.ObjectReferenceCollections
                 .First(c => (c is TypeReferenceCollection) && (c as TypeReferenceCollection).Language == parent.Language);
             this.Text = string.Format(Strings.MembersOfType, parent.Name);
@@ -117,6 +119,32 @@ namespace NClass.DiagramEditor.ClassDiagram.Dialogs
 
 			base.ShowDialog();
 		}
+
+        private void UnregisterFromProjectEvents()
+        {
+            if (project == null)
+                return;
+
+            project.ObjectReferenceAdded -= Project_ObjectReferencesChanged;
+            project.ObjectReferenceRemoved -= Project_ObjectReferencesChanged;
+        }
+
+        private void RegisterToProjectEvents()
+        {
+            if (project == null)
+                return;
+
+            project.ObjectReferenceAdded += Project_ObjectReferencesChanged;
+            project.ObjectReferenceRemoved += Project_ObjectReferencesChanged;
+        }
+
+        private void Project_ObjectReferencesChanged(object sender, ObjectReferenceEventArgs e)
+        {
+            if (e.Collection != typeReferenceCollection)
+                return;
+
+            RefreshTypeSelector();
+        }
 
         private void RefreshTypeSelector()
         {
@@ -481,7 +509,6 @@ namespace NClass.DiagramEditor.ClassDiagram.Dialogs
             var name = cboType.Text;
             var reference = new ObjectReference(name);
             project.Add(reference, typeReferenceCollection);
-            RefreshTypeSelector();
         }
 
 		protected override void OnLoad(EventArgs e)
