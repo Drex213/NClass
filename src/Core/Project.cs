@@ -204,12 +204,18 @@ namespace NClass.Core
 			item.Modified += new EventHandler(item_Modified);
 			items.Add(item);
 
-            OnObjectReferenceCollectionChanged(EventArgs.Empty);
+            OnObjectReferenceCollectionsChanged(EventArgs.Empty);
 			OnItemAdded(new ProjectItemEventArgs(item));
 			OnModified(EventArgs.Empty);
-		}
+        }
 
-		public void Remove(IProjectItem item)
+        public void Add(ObjectReference item, ObjectReferenceCollection collection)
+        {
+            collection.ObjectReferences.Add(item);
+            OnObjectReferenceCollectionsChanged(EventArgs.Empty);
+        }
+
+        public void Remove(IProjectItem item)
 		{
 			if (items.Remove(item))
 			{
@@ -508,7 +514,7 @@ namespace NClass.Core
 				ItemRemoved(this, e);
 		}
 
-        private void OnObjectReferenceCollectionChanged(EventArgs e)
+        private void OnObjectReferenceCollectionsChanged(EventArgs e)
         {
             if (ObjectReferenceCollectionsChanged != null)
                 ObjectReferenceCollectionsChanged(this, e);

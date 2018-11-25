@@ -113,6 +113,9 @@
       <ObjectReference>
         <Name>string</Name>
       </ObjectReference>
+      <ObjectReference>
+        <Name>void</Name>
+      </ObjectReference>
     </ObjectReferenceCollection>
   </ObjectReferences>
 </Project>
