@@ -490,7 +490,7 @@ namespace NClass.Core
         {
             var objectReferenceCollectionsElement = node["ObjectReferences"];
             if (objectReferenceCollectionsElement == null)
-                throw new InvalidDataException("ObjectReferences is missing.");
+                return;
 
             foreach (XmlElement collectionElement in objectReferenceCollectionsElement.GetElementsByTagName("ObjectReferenceCollection"))
             {
