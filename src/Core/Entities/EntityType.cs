@@ -24,6 +24,7 @@ namespace NClass.Core
 		Interface,
 		Enum,
 		Delegate,
-		Comment
+		Comment,
+        External
 	}
 }

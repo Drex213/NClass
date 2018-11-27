@@ -28,6 +28,7 @@ namespace NClass.GUI.ModelExplorer
             ImageKey = objectReference.IconImageKey;
             SelectedImageKey = objectReference.IconImageKey;
             ObjectReference = objectReference;
+            objectReference.Modified += ObjectReference_Modified;
         }
 
         public ObjectReference ObjectReference { get; }
@@ -53,6 +54,12 @@ namespace NClass.GUI.ModelExplorer
             var objectsNode = (ObjectReferencesNode)collectionNode.Parent;
             var projectNode = (ProjectNode)objectsNode.Parent;
             projectNode.Project.Remove(referenceNode.ObjectReference, collectionNode.ObjectReferenceCollection);
+        }
+
+        private void ObjectReference_Modified(object sender, EventArgs e)
+        {
+            var reference = (ObjectReference)sender;
+            Text = reference.Name;
         }
     }
 }

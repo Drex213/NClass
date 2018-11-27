@@ -12,8 +12,7 @@ namespace NClass.Core.ObjectReferences.TypeReferences
         {
         }
 
-        public ExternalTypeReference(string name)
-            : base(name)
+        public ExternalTypeReference(TypeBase element) : base(element)
         {
         }
 

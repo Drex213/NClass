@@ -25,13 +25,19 @@ namespace NClass.Core.ObjectReferences
             return (ObjectReference)Activator.CreateInstance(targetType);
         }
 
+        protected List<Element> referredElements = new List<Element>();
+
+        public event EventHandler Modified;
+
         public ObjectReference()
         {
         }
 
-        public ObjectReference(string name)
+        public ObjectReference(TypeBase element)
         {
-            Name = name;
+            referredElements.Add(element);
+            Name = element.Name;
+            element.Modified += Element_Modified;
         }
 
         public string Name { get; protected set; }
@@ -55,6 +61,19 @@ namespace NClass.Core.ObjectReferences
             XmlElement nameElement = node.OwnerDocument.CreateElement("Name");
             nameElement.InnerText = Name;
             node.AppendChild(nameElement);
+        }
+
+        private void OnModified(EventArgs e)
+        {
+            if (Modified != null)
+                Modified(this, e);
+        }
+
+        private void Element_Modified(object sender, EventArgs e)
+        {
+            var element = (TypeBase)sender;
+            Name = element.Name;
+            OnModified(EventArgs.Empty);
         }
     }
 }

@@ -12,8 +12,7 @@ namespace NClass.Core.ObjectReferences.TypeReferences
         {
         }
 
-        public BuiltInTypeReference(string name)
-            : base (name)
+        public BuiltInTypeReference(TypeBase element) : base(element)
         {
         }
 

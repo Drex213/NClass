@@ -45,21 +45,21 @@
   <Class Name="NClass.GUI.ModelExplorer.ObjectReferencesNode">
     <Position X="4.75" Y="5.75" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAEAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AEAAEAAAAAAAAABAAAAAAAQAAAgAAAIAAAAAAAAAAAA=</HashCode>
       <FileName>ModelExplorer\ObjectReferencesNode.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="NClass.GUI.ModelExplorer.ObjectReferenceNode">
     <Position X="0.5" Y="8" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAACAAAAAAAAAAAAAAAAAAAAAAgAAAAQAAAAAAAIAA=</HashCode>
       <FileName>ModelExplorer\ObjectReferenceNode.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="NClass.GUI.ModelExplorer.TypeReferenceCollectionNode">
-    <Position X="3.25" Y="8" Width="2.5" />
+    <Position X="3.25" Y="9" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAQAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAQAAgAAABAAIAAAAAAAAAAAAAAAAAAAAAgA=</HashCode>
       <FileName>ModelExplorer\TypeReferenceCollectionNode.cs</FileName>
     </TypeIdentifier>
   </Class>

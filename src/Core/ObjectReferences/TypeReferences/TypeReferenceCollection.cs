@@ -1,3 +1,4 @@
+using NClass.Core.Entities;
 using NClass.Translations;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace NClass.Core.ObjectReferences.TypeReferences
         public TypeReferenceCollection(Language language)
         {
             Language = language;
-            var references = language.TypeKeywords.Select(rn => new BuiltInTypeReference(rn));
+            var references = language.TypeKeywords.Select(rn => new BuiltInTypeReference(new ExternalType(rn)));
             ObjectReferences.AddRange(references);
         }
 

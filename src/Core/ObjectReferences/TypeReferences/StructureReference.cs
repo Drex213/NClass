@@ -12,7 +12,7 @@ namespace NClass.Core.ObjectReferences.TypeReferences
         {
         }
 
-        public StructureReference(string name) : base(name)
+        public StructureReference(TypeBase element) : base(element)
         {
         }
 

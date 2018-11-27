@@ -12,7 +12,7 @@ namespace NClass.Core.ObjectReferences.TypeReferences
         {
         }
 
-        public EnumReference(string name) : base(name)
+        public EnumReference(TypeBase element) : base(element)
         {
         }
 

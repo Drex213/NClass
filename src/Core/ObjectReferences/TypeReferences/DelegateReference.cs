@@ -12,7 +12,7 @@ namespace NClass.Core.ObjectReferences.TypeReferences
         {
         }
 
-        public DelegateReference(string name) : base(name)
+        public DelegateReference(TypeBase element) : base(element)
         {
         }
 

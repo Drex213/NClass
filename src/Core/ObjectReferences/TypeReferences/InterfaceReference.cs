@@ -12,7 +12,7 @@ namespace NClass.Core.ObjectReferences.TypeReferences
         {
         }
 
-        public InterfaceReference(string name) : base(name)
+        public InterfaceReference(TypeBase element) : base(element)
         {
         }
 

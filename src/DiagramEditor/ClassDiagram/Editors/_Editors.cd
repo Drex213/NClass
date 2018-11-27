@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="NClass.DiagramEditor.ClassDiagram.Editors.BorderedTextBox" Collapsed="true">
+    <Position X="0.75" Y="1" Width="1.5" />
+    <NestedTypes>
+      <Class Name="NClass.DiagramEditor.ClassDiagram.Editors.BorderedTextBox.TabTextBox" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>ClassDiagram\Editors\BorderedTextBox.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAABCAAACAAAgACAAQAIAACAQAAAAAAgAAICQEBAAA=</HashCode>
+      <FileName>ClassDiagram\Editors\BorderedTextBox.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NClass.DiagramEditor.ClassDiagram.Editors.CommentEditor">
+    <Position X="9" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAMAAAACAAAAAAAgCAAAACAAAAAABAAAACAAAARAA=</HashCode>
+      <FileName>ClassDiagram\Editors\CommentEditor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NClass.DiagramEditor.ClassDiagram.Editors.CompositeTypeEditor">
+    <Position X="0.5" Y="13.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>NgkBkFClEmCYAAYCQgSRAMGiI4QQQmAIoCQeBAVADMU=</HashCode>
+      <FileName>ClassDiagram\Editors\CompositeTypeEditor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NClass.DiagramEditor.ClassDiagram.Editors.DelegateEditor">
+    <Position X="3.5" Y="13.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>BAABFFCkCCAYACIAAgSQAEAKEACAwgCIAAAeAIRABAU=</HashCode>
+      <FileName>ClassDiagram\Editors\DelegateEditor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NClass.DiagramEditor.ClassDiagram.Editors.EditorWindow">
+    <Position X="3.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAAAAAAAABAAAAAAAAAACAAAAQAA=</HashCode>
+      <FileName>ClassDiagram\Editors\EditorWindow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NClass.DiagramEditor.PopupWindow">
+    <Position X="3.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAIAAAAAAAAABAAAAIAAAAABAAAAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>PopupWindow.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NClass.DiagramEditor.ClassDiagram.Editors.TypeEditor">
+    <Position X="3.25" Y="11.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>ClassDiagram\Editors\TypeEditor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NClass.DiagramEditor.ClassDiagram.Editors.EnumEditor">
+    <Position X="6.25" Y="13.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>BAABEFCkiCAYACIAAgSQAEAKAACAQkCIAAAeBIRABAU=</HashCode>
+      <FileName>ClassDiagram\Editors\EnumEditor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NClass.DiagramEditor.ClassDiagram.Editors.FloatingEditor">
+    <Position X="3.25" Y="7.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAACAAAAAEAAAIAAAAAAAAAAAAAEAAAABAAAA=</HashCode>
+      <FileName>ClassDiagram\Editors\FloatingEditor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NClass.DiagramEditor.ClassDiagram.Editors.ItemEditor" Collapsed="true">
+    <Position X="9.5" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAMBWBQAACAwCgIAAiCAEEACAAHAAAAAQQASAEgIQAA=</HashCode>
+      <FileName>ClassDiagram\Editors\ItemEditor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NClass.DiagramEditor.ClassDiagram.Editors.MemberEditor" Collapsed="true">
+    <Position X="7.5" Y="11.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>dhOR3FQkEGA4CwYiQyyREMCiK4WEQCEI5UAeAk1IRKk=</HashCode>
+      <FileName>ClassDiagram\Editors\MemberEditor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NClass.DiagramEditor.ClassDiagram.Editors.ParameterEditor" Collapsed="true">
+    <Position X="9.5" Y="13.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAMBAAQAAAAAAAAAAAAAEAAAAAGAAAAAQAACAAAARAA=</HashCode>
+      <FileName>ClassDiagram\Editors\ParameterEditor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9.16" />
+</ClassDiagram>

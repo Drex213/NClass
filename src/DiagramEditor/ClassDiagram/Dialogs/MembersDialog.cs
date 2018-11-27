@@ -22,6 +22,7 @@ using NClass.Translations;
 using System.Linq;
 using NClass.Core.ObjectReferences;
 using NClass.Core.ObjectReferences.TypeReferences;
+using NClass.Core.Entities;
 
 namespace NClass.DiagramEditor.ClassDiagram.Dialogs
 {
@@ -508,7 +509,7 @@ namespace NClass.DiagramEditor.ClassDiagram.Dialogs
         private void CreateNewObjectReference()
         {
             var name = cboType.Text;
-            var reference = new ExternalTypeReference(name);
+            var reference = new ExternalTypeReference(new ExternalType(name));
             project.Add(reference, typeReferenceCollection);
         }
 
