@@ -39,9 +39,12 @@ namespace NClass.Core
 		public event EventHandler FileStateChanged;
 		public event ProjectItemEventHandler ItemAdded;
 		public event ProjectItemEventHandler ItemRemoved;
-        public event EventHandler ObjectReferenceCollectionsChanged;
+        public event ObjectReferenceEventHandler ObjectReferenceCollectionAdded;
+        public event ObjectReferenceEventHandler ObjectReferenceCollectionRemoved;
+        public event ObjectReferenceEventHandler ObjectReferenceAdded;
+        public event ObjectReferenceEventHandler ObjectReferenceRemoved;
 
-		public Project()
+        public Project()
 		{
 			name = Strings.Untitled;
 		}
@@ -203,13 +206,24 @@ namespace NClass.Core
 			item.Project = this;
 			item.Modified += new EventHandler(item_Modified);
 			items.Add(item);
-
-            OnObjectReferenceCollectionChanged(EventArgs.Empty);
+            
 			OnItemAdded(new ProjectItemEventArgs(item));
 			OnModified(EventArgs.Empty);
-		}
+        }
 
-		public void Remove(IProjectItem item)
+        public void Add(ObjectReferenceCollection collection)
+        {
+            ObjectReferenceCollections.Add(collection);
+            OnObjectReferenceCollectionAdded(new ObjectReferenceEventArgs(collection));
+        }
+
+        public void Add(ObjectReference reference, ObjectReferenceCollection parentCollection)
+        {
+            parentCollection.ObjectReferences.Add(reference);
+            OnObjectReferenceAdded(new ObjectReferenceEventArgs(parentCollection, reference));
+        }
+
+        public void Remove(IProjectItem item)
 		{
 			if (items.Remove(item))
 			{
@@ -220,7 +234,19 @@ namespace NClass.Core
 			}
 		}
 
-		private void item_Modified(object sender, EventArgs e)
+        public void Remove(ObjectReferenceCollection collection)
+        {
+            ObjectReferenceCollections.Remove(collection);
+            OnObjectReferenceCollectionRemoved(new ObjectReferenceEventArgs(collection));
+        }
+
+        public void Remove(ObjectReference reference, ObjectReferenceCollection parentCollection)
+        {
+            parentCollection.ObjectReferences.Remove(reference);
+            OnObjectReferenceRemoved(new ObjectReferenceEventArgs(parentCollection, reference));
+        }
+
+        private void item_Modified(object sender, EventArgs e)
 		{
 			isDirty = true;
 			OnModified(EventArgs.Empty);
@@ -508,13 +534,31 @@ namespace NClass.Core
 				ItemRemoved(this, e);
 		}
 
-        private void OnObjectReferenceCollectionChanged(EventArgs e)
+        private void OnObjectReferenceCollectionAdded(ObjectReferenceEventArgs e)
         {
-            if (ObjectReferenceCollectionsChanged != null)
-                ObjectReferenceCollectionsChanged(this, e);
+            if (ObjectReferenceCollectionAdded != null)
+                ObjectReferenceCollectionAdded(this, e);
         }
 
-		private void OnFileStateChanged(EventArgs e)
+        private void OnObjectReferenceCollectionRemoved(ObjectReferenceEventArgs e)
+        {
+            if (ObjectReferenceCollectionRemoved != null)
+                ObjectReferenceCollectionRemoved(this, e);
+        }
+
+        private void OnObjectReferenceAdded(ObjectReferenceEventArgs e)
+        {
+            if (ObjectReferenceAdded != null)
+                ObjectReferenceAdded(this, e);
+        }
+
+        private void OnObjectReferenceRemoved(ObjectReferenceEventArgs e)
+        {
+            if (ObjectReferenceRemoved != null)
+                ObjectReferenceRemoved(this, e);
+        }
+
+        private void OnFileStateChanged(EventArgs e)
 		{
 			if (FileStateChanged != null)
 				FileStateChanged(this, e);

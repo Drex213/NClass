@@ -73,6 +73,7 @@
     <Compile Include="Entities\EntityType.cs" />
     <Compile Include="Members\MemberType.cs" />
     <Compile Include="Models\ClassModel.cs" />
+    <Compile Include="ObjectReferenceEventArgs.cs" />
     <Compile Include="ObjectReferences\TypeReferenceCollection.cs" />
     <Compile Include="RelationshipEventArgs.cs" />
     <Compile Include="Relationships\AssociationType.cs" />

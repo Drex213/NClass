@@ -11,30 +11,57 @@ namespace NClass.GUI.ModelExplorer
 {
     public class ObjectReferencesNode : ModelNode
     {
+        private readonly Project project;
+
         public ObjectReferencesNode(Project project)
         {
-            Name = nameof(ObjectReferencesNode);
+            this.project = project;
             Text = Strings.ObjectReferences;
             ImageKey = "folders-stack";
             SelectedImageKey = "folders-stack";
             AddObjectReferenceNodes(project);
+
+            project.ObjectReferenceCollectionAdded += Project_ObjectReferenceCollectionAdded;
+            project.ObjectReferenceCollectionRemoved += Project_ObjectReferenceCollectionRemoved;
         }
 
         private void AddObjectReferenceNodes(Project project)
         {
             foreach (var collection in project.ObjectReferenceCollections)
             {
-                AddObjectRefereneceCollectionNode(collection);
+                AddObjectReferenceCollectionNode(collection);
             }
         }
 
-        private void AddObjectRefereneceCollectionNode(ObjectReferenceCollection collection)
+        private void AddObjectReferenceCollectionNode(ObjectReferenceCollection collection)
         {
             if (collection is TypeReferenceCollection)
             {
-                var node = new TypeReferenceCollectionNode(collection);
+                var node = new TypeReferenceCollectionNode(collection, project);
                 Nodes.Add(node);
             }
+        }
+
+        private void RemoveObjectReferenceCollectionNode(ObjectReferenceCollection collection)
+        {
+            foreach (ObjectReferenceCollectionNode node in Nodes)
+            {
+                if (node.ObjectReferenceCollection == collection)
+                {
+                    Nodes.Remove(node);
+                    break;
+                }
+            }
+        }
+
+        private void Project_ObjectReferenceCollectionAdded(object sender, ObjectReferenceEventArgs e)
+        {
+            AddObjectReferenceCollectionNode(e.Collection);
+        }
+
+        private void Project_ObjectReferenceCollectionRemoved(object sender, ObjectReferenceEventArgs e)
+        {
+            RemoveObjectReferenceCollectionNode(e.Collection);
         }
     }
 }

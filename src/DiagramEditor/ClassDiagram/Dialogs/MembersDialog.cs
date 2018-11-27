@@ -19,12 +19,16 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using NClass.Core;
 using NClass.Translations;
+using System.Linq;
+using NClass.Core.ObjectReferences;
 
 namespace NClass.DiagramEditor.ClassDiagram.Dialogs
 {
 	public partial class MembersDialog : Form
 	{
 		CompositeType parent = null;
+        Project project = null;
+        TypeReferenceCollection typeReferenceCollection = null;
 		Member member = null;
 		bool locked = false;
 		int attributeCount = 0;
@@ -75,15 +79,21 @@ namespace NClass.DiagramEditor.ClassDiagram.Dialogs
 			btnClose.Text = Strings.ButtonClose;
 		}
 
-		public void ShowDialog(CompositeType parent)
+		public void ShowDialog(CompositeType parent, Project project)
 		{
 			if (parent == null)
 				return;
 
 			this.parent = parent;
-			this.Text = string.Format(Strings.MembersOfType, parent.Name);
+            UnregisterFromProjectEvents();
+            this.project = project;
+            RegisterToProjectEvents();
+            typeReferenceCollection = (TypeReferenceCollection)project.ObjectReferenceCollections
+                .First(c => (c is TypeReferenceCollection) && (c as TypeReferenceCollection).Language == parent.Language);
+            this.Text = string.Format(Strings.MembersOfType, parent.Name);
 
 			LanguageSpecificInitialization(parent.Language);
+            RefreshTypeSelector();
 			FillMembersList();
 			if (lstMembers.Items.Count > 0) {
 				lstMembers.Items[0].Focused = true;
@@ -109,6 +119,38 @@ namespace NClass.DiagramEditor.ClassDiagram.Dialogs
 
 			base.ShowDialog();
 		}
+
+        private void UnregisterFromProjectEvents()
+        {
+            if (project == null)
+                return;
+
+            project.ObjectReferenceAdded -= Project_ObjectReferencesChanged;
+            project.ObjectReferenceRemoved -= Project_ObjectReferencesChanged;
+        }
+
+        private void RegisterToProjectEvents()
+        {
+            if (project == null)
+                return;
+
+            project.ObjectReferenceAdded += Project_ObjectReferencesChanged;
+            project.ObjectReferenceRemoved += Project_ObjectReferencesChanged;
+        }
+
+        private void Project_ObjectReferencesChanged(object sender, ObjectReferenceEventArgs e)
+        {
+            if (e.Collection != typeReferenceCollection)
+                return;
+
+            RefreshTypeSelector();
+        }
+
+        private void RefreshTypeSelector()
+        {
+            cboType.Items.Clear();
+            cboType.Items.AddRange(typeReferenceCollection.ObjectReferences.ToArray());
+        }
 
 		private void LanguageSpecificInitialization(Language language)
 		{
@@ -462,6 +504,13 @@ namespace NClass.DiagramEditor.ClassDiagram.Dialogs
 			}
 		}
 
+        private void CreateNewObjectReference()
+        {
+            var name = cboType.Text;
+            var reference = new ObjectReference(name);
+            project.Add(reference, typeReferenceCollection);
+        }
+
 		protected override void OnLoad(EventArgs e)
 		{
 			base.OnLoad(e);
@@ -469,6 +518,7 @@ namespace NClass.DiagramEditor.ClassDiagram.Dialogs
 			errorProvider.SetError(grpFieldModifiers, null);
 			errorProvider.SetError(grpOperationModifiers, null);
 			error = false;
+            cboType.DisplayMember = "Name";
 		}
 
 		private void PropertiesDialog_KeyDown(object sender, KeyEventArgs e)
@@ -535,8 +585,8 @@ namespace NClass.DiagramEditor.ClassDiagram.Dialogs
 					string oldValue = member.Type;
 
 					member.Type = cboType.Text;
-					if (!cboType.Items.Contains(cboType.Text))
-						cboType.Items.Add(cboType.Text);
+                    if (cboType.SelectedItem == null)
+                        CreateNewObjectReference();
 					errorProvider.SetError(cboType, null);
 					error = false;
 					cboType.Select(0, 0);

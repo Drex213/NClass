@@ -3,31 +3,32 @@
   <Class Name="NClass.Core.Model">
     <Position X="0.5" Y="0.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>EABQEEACAAQAEICAAhBBCAwBASDEQQEgAoEBCBIQIAA=</HashCode>
+      <HashCode>EABQEEACAAQAFICAAhBBCAwBASjEQQEgAoEBCBIQIAA=</HashCode>
       <FileName>Model.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
       <Property Name="Project" />
     </ShowAsAssociation>
     <ShowAsCollectionAssociation>
-      <Property Name="Relationships" />
       <Property Name="Entities" />
+      <Property Name="Relationships" />
     </ShowAsCollectionAssociation>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="NClass.Core.Project">
     <Position X="6" Y="0.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAJAgIEAAEgiSAgUgRgBRAQBACDEgYEQAABBCABAQAE=</HashCode>
+      <HashCode>QAJAgIEAAEgiSAgUgRgBRAwBACDUgYEQAABBKANAQAE=</HashCode>
       <FileName>Project.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="Items" />
+      <Property Name="ObjectReferenceCollections" />
     </ShowAsCollectionAssociation>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="NClass.Core.Relationship">
-    <Position X="9.5" Y="5.5" Width="2.5" />
+    <Position X="9.5" Y="7.75" Width="2.5" />
     <TypeIdentifier>
       <HashCode>CAUAEAAANAQAATKEIAAAAAIABKBAAAAAAAAAAAAAIAA=</HashCode>
       <FileName>Relationships\Relationship.cs</FileName>
@@ -41,8 +42,32 @@
   <Class Name="NClass.Core.Models.ClassModel">
     <Position X="3" Y="0.5" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>AAAIAAAMCAAAOAigAABBACAAgCAIAQAEAAAAAIAAAgA=</HashCode>
+      <HashCode>AAAIAAAMCAAAPAigAABBACAAgCAIAQAEAAAAAIAAAgA=</HashCode>
       <FileName>Models\ClassModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NClass.Core.ObjectReferences.ObjectReferenceCollection">
+    <Position X="10.25" Y="4.5" Width="2" />
+    <NestedTypes>
+      <Enum Name="NClass.Core.ObjectReferences.ObjectReferenceCollection.CollectionType" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>ObjectReferences\ObjectReferenceCollection.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAACBACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ObjectReferences\ObjectReferenceCollection.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="ObjectReferences" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="NClass.Core.ObjectReferences.ObjectReference">
+    <Position X="14" Y="4.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAACBAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ObjectReferences\ObjectReference.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Interface Name="NClass.Core.IProjectItem">
@@ -53,7 +78,7 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="NClass.Core.IEntity">
-    <Position X="13.25" Y="5.5" Width="1.5" />
+    <Position X="16.75" Y="8.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAQAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Entities\IEntity.cs</FileName>

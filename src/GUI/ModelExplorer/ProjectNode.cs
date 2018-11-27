@@ -67,7 +67,6 @@ namespace NClass.GUI.ModelExplorer
 			project.Renamed += new EventHandler(project_Renamed);
 			project.ItemAdded += new ProjectItemEventHandler(project_ItemAdded);
 			project.ItemRemoved += new ProjectItemEventHandler(project_ItemRemoved);
-            project.ObjectReferenceCollectionsChanged += new EventHandler(project_ObjectReferenceCollectionsChanged);
 		}
 
 		public Project Project
@@ -140,15 +139,6 @@ namespace NClass.GUI.ModelExplorer
             Nodes.Add(node);
         }
 
-        private void RefreshObjectReferencesNode()
-        {
-            var referencesNode = Nodes.Find(nameof(ObjectReferencesNode), false)[0];
-            var referencesNodeIndex = Nodes.IndexOf(referencesNode);
-            Nodes.RemoveAt(referencesNodeIndex);
-            var newReferencesNode = new ObjectReferencesNode(Project);
-            Nodes.Insert(referencesNodeIndex, newReferencesNode);
-        }
-
         private void RemoveProjectItemNode(IProjectItem projectItem)
 		{
 			foreach (ProjectItemNode node in Nodes)
@@ -190,11 +180,6 @@ namespace NClass.GUI.ModelExplorer
 					node.AfterInitialized();
 			}
 		}
-
-        private void project_ObjectReferenceCollectionsChanged(object sender, EventArgs e)
-        {
-            RefreshObjectReferencesNode();
-        }
 
         public override void BeforeDelete()
 		{

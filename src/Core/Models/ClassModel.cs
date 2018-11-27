@@ -343,7 +343,7 @@ namespace NClass.Core.Models
                 return;
 
             var collection = new TypeReferenceCollection(language);
-            Project.ObjectReferenceCollections.Add(collection);
+            Project.Add(collection);
         }
     }
 }
