@@ -1,4 +1,4 @@
-﻿using NClass.Translations;
+using NClass.Translations;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 
-namespace NClass.Core.ObjectReferences
+namespace NClass.Core.ObjectReferences.TypeReferences
 {
     public class TypeReferenceCollection : ObjectReferenceCollection
     {
@@ -18,7 +18,7 @@ namespace NClass.Core.ObjectReferences
         public TypeReferenceCollection(Language language)
         {
             Language = language;
-            var references = language.TypeKeywords.Select(rn => new ObjectReference(rn));
+            var references = language.TypeKeywords.Select(rn => new BuiltInTypeReference(rn));
             ObjectReferences.AddRange(references);
         }
 
@@ -36,7 +36,12 @@ namespace NClass.Core.ObjectReferences
 
             foreach (XmlElement typeReferenceElement in node.GetElementsByTagName("ObjectReference"))
             {
-                var reference = new ObjectReference();
+                XmlAttribute typeAttribute = typeReferenceElement.Attributes["type"];
+
+                if (typeAttribute == null)
+                    throw new InvalidDataException("ObjectReference's type name is missing.");
+
+                var reference = ObjectReference.Create(typeAttribute.InnerText);
                 reference.Deserialize(typeReferenceElement);
                 ObjectReferences.Add(reference);
             }
@@ -58,7 +63,6 @@ namespace NClass.Core.ObjectReferences
                 reference.Serialize(referenceElement);
                 node.AppendChild(referenceElement);
             }
-            
         }
     }
 }

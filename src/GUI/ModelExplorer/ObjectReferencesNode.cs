@@ -1,5 +1,6 @@
 ﻿using NClass.Core;
 using NClass.Core.ObjectReferences;
+using NClass.Core.ObjectReferences.TypeReferences;
 using NClass.Translations;
 using System;
 using System.Collections.Generic;

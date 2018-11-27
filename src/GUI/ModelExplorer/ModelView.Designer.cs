@@ -183,7 +183,7 @@ namespace NClass.GUI.ModelExplorer
             this.imageList.Images.SetKeyName(3, "folder");
             this.imageList.Images.SetKeyName(4, "folder-open");
             this.imageList.Images.SetKeyName(5, "type-builtin");
-            this.imageList.Images.SetKeyName(6, "type-valuetype");
+            this.imageList.Images.SetKeyName(6, "type-external");
             this.imageList.Images.SetKeyName(7, "type-interface");
             this.imageList.Images.SetKeyName(8, "type-class");
             this.imageList.Images.SetKeyName(9, "type-enum");

@@ -18,6 +18,7 @@ using System.IO;
 using System.Linq;
 using System.Xml;
 using NClass.Core.ObjectReferences;
+using NClass.Core.ObjectReferences.TypeReferences;
 using NClass.Translations;
 
 namespace NClass.Core.Models
@@ -50,6 +51,10 @@ namespace NClass.Core.Models
         {
             ClassType newClass = Language.CreateClass();
             AddEntity(newClass);
+
+            if (objectReferenceCollection != null)
+                Project.Add(new ClassReference(newClass.Name), objectReferenceCollection);
+
             return newClass;
         }
 
@@ -336,14 +341,15 @@ namespace NClass.Core.Models
 
         protected override void AddObjectReferenceCollections()
         {
-            var isAlreadyCreated = Project.ObjectReferenceCollections
-                .Any(c => (c is TypeReferenceCollection) && (c as TypeReferenceCollection).Language == language);
+            objectReferenceCollection = Project.ObjectReferenceCollections
+                .SingleOrDefault(c => (c is TypeReferenceCollection) && (c as TypeReferenceCollection).Language == language);
 
-            if (isAlreadyCreated)
+            if (objectReferenceCollection != null)
                 return;
 
             var collection = new TypeReferenceCollection(language);
             Project.Add(collection);
+            objectReferenceCollection = collection;
         }
     }
 }

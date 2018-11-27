@@ -20,6 +20,7 @@ using System.Xml;
 using System.IO;
 using NClass.Translations;
 using NClass.Core.ObjectReferences;
+using NClass.Core.ObjectReferences.TypeReferences;
 
 namespace NClass.Core
 {

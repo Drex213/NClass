@@ -19,6 +19,7 @@ using System.Collections.Generic;
 using System.Xml;
 using System.IO;
 using NClass.Translations;
+using NClass.Core.ObjectReferences;
 
 namespace NClass.Core
 {
@@ -27,6 +28,7 @@ namespace NClass.Core
         private Project project;
 		protected List<IEntity> entities = new List<IEntity>();
 		protected List<Relationship> relationships = new List<Relationship>();
+        protected ObjectReferenceCollection objectReferenceCollection = null;
 	    private bool isDirty = false;
 	    private bool loading = false;
 

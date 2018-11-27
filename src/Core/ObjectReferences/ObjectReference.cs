@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
@@ -10,8 +11,20 @@ using System.Xml;
 namespace NClass.Core.ObjectReferences
 {
     [DebuggerDisplay("{Name}")]
-    public class ObjectReference
+    public abstract class ObjectReference
     {
+        public static ObjectReference Create(string typeName)
+        {
+            var assembly = Assembly.GetAssembly(typeof(ObjectReference));
+            var referenceTypes = assembly.GetTypes().Where(t => t.IsClass && !t.IsAbstract && t.IsSubclassOf(typeof(ObjectReference)));
+            var targetType = referenceTypes.FirstOrDefault(t => t.Name == typeName);
+
+            if (targetType == null)
+                throw new ArgumentException($"An ObjectReference with typename of '{typeName}' cannot be instanciated.");
+
+            return (ObjectReference)Activator.CreateInstance(targetType);
+        }
+
         public ObjectReference()
         {
         }
@@ -21,9 +34,11 @@ namespace NClass.Core.ObjectReferences
             Name = name;
         }
 
-        public string Name { get; set; }
+        public string Name { get; protected set; }
 
-        public void Deserialize(XmlElement node)
+        public virtual string IconImageKey => "type-builtin";
+
+        public virtual void Deserialize(XmlElement node)
         {
             var nameNode = node["Name"];
             if (nameNode == null)
@@ -31,8 +46,12 @@ namespace NClass.Core.ObjectReferences
             Name = nameNode.InnerText;
         }
 
-        public void Serialize(XmlElement node)
+        public virtual void Serialize(XmlElement node)
         {
+            XmlAttribute typeAttribute = node.OwnerDocument.CreateAttribute("type");
+            typeAttribute.InnerText = GetType().Name;
+            node.Attributes.Append(typeAttribute);
+
             XmlElement nameElement = node.OwnerDocument.CreateElement("Name");
             nameElement.InnerText = Name;
             node.AppendChild(nameElement);

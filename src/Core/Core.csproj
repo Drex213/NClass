@@ -74,7 +74,10 @@
     <Compile Include="Members\MemberType.cs" />
     <Compile Include="Models\ClassModel.cs" />
     <Compile Include="ObjectReferenceEventArgs.cs" />
-    <Compile Include="ObjectReferences\TypeReferenceCollection.cs" />
+    <Compile Include="ObjectReferences\TypeReferences\BuiltInTypeReference.cs" />
+    <Compile Include="ObjectReferences\TypeReferences\ClassReference.cs" />
+    <Compile Include="ObjectReferences\TypeReferences\ExternalTypeReference.cs" />
+    <Compile Include="ObjectReferences\TypeReferences\TypeReferenceCollection.cs" />
     <Compile Include="RelationshipEventArgs.cs" />
     <Compile Include="Relationships\AssociationType.cs" />
     <Compile Include="Relationships\RelationshipType.cs" />
