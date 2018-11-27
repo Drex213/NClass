@@ -51,10 +51,7 @@ namespace NClass.Core.Models
         {
             ClassType newClass = Language.CreateClass();
             AddEntity(newClass);
-
-            if (objectReferenceCollection != null)
-                Project.Add(new ClassReference(newClass.Name), objectReferenceCollection);
-
+            AddObjectReference(new ClassReference(newClass.Name));
             return newClass;
         }
 
@@ -65,6 +62,7 @@ namespace NClass.Core.Models
         {
             StructureType structure = Language.CreateStructure();
             AddEntity(structure);
+            AddObjectReference(new StructureReference(structure.Name));
             return structure;
         }
 
@@ -72,6 +70,7 @@ namespace NClass.Core.Models
         {
             InterfaceType newInterface = Language.CreateInterface();
             AddEntity(newInterface);
+            AddObjectReference(new InterfaceReference(newInterface.Name));
             return newInterface;
         }
 
@@ -79,6 +78,7 @@ namespace NClass.Core.Models
         {
             EnumType newEnum = Language.CreateEnum();
             AddEntity(newEnum);
+            AddObjectReference(new EnumReference(newEnum.Name));
             return newEnum;
         }
 
@@ -90,6 +90,7 @@ namespace NClass.Core.Models
         {
             DelegateType newDelegate = Language.CreateDelegate();
             AddEntity(newDelegate);
+            AddObjectReference(new DelegateReference(newDelegate.Name));
             return newDelegate;
         }
 
@@ -350,6 +351,14 @@ namespace NClass.Core.Models
             var collection = new TypeReferenceCollection(language);
             Project.Add(collection);
             objectReferenceCollection = collection;
+        }
+
+        private void AddObjectReference(ObjectReference reference)
+        {
+            if (objectReferenceCollection == null)
+                return;
+
+            Project.Add(reference, objectReferenceCollection);
         }
     }
 }

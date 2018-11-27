@@ -186,8 +186,9 @@ namespace NClass.GUI.ModelExplorer
             this.imageList.Images.SetKeyName(6, "type-external");
             this.imageList.Images.SetKeyName(7, "type-interface");
             this.imageList.Images.SetKeyName(8, "type-class");
-            this.imageList.Images.SetKeyName(9, "type-enum");
-            this.imageList.Images.SetKeyName(10, "type-delegate");
+            this.imageList.Images.SetKeyName(9, "type-structure");
+            this.imageList.Images.SetKeyName(10, "type-enum");
+            this.imageList.Images.SetKeyName(11, "type-delegate");
             // 
             // lblAddProject
             // 
