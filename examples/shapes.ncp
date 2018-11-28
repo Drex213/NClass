@@ -68,57 +68,23 @@
   </ProjectItem>
   <ObjectReferences>
     <ObjectReferenceCollection collectionType="LanguageTypes" language="CSharp">
-      <ObjectReference type="BuiltInTypeReference">
-        <Name>bool</Name>
-      </ObjectReference>
-      <ObjectReference type="BuiltInTypeReference">
-        <Name>byte</Name>
-      </ObjectReference>
-      <ObjectReference type="BuiltInTypeReference">
-        <Name>char</Name>
-      </ObjectReference>
-      <ObjectReference type="BuiltInTypeReference">
-        <Name>decimal</Name>
-      </ObjectReference>
-      <ObjectReference type="BuiltInTypeReference">
-        <Name>double</Name>
-      </ObjectReference>
-      <ObjectReference type="BuiltInTypeReference">
-        <Name>float</Name>
-      </ObjectReference>
-      <ObjectReference type="BuiltInTypeReference">
-        <Name>int</Name>
-      </ObjectReference>
-      <ObjectReference type="BuiltInTypeReference">
-        <Name>long</Name>
-      </ObjectReference>
-      <ObjectReference type="BuiltInTypeReference">
-        <Name>object</Name>
-      </ObjectReference>
-      <ObjectReference type="BuiltInTypeReference">
-        <Name>sbyte</Name>
-      </ObjectReference>
-      <ObjectReference type="BuiltInTypeReference">
-        <Name>short</Name>
-      </ObjectReference>
-      <ObjectReference type="BuiltInTypeReference">
-        <Name>string</Name>
-      </ObjectReference>
-      <ObjectReference type="BuiltInTypeReference">
-        <Name>uint</Name>
-      </ObjectReference>
-      <ObjectReference type="BuiltInTypeReference">
-        <Name>ulong</Name>
-      </ObjectReference>
-      <ObjectReference type="BuiltInTypeReference">
-        <Name>ushort</Name>
-      </ObjectReference>
-      <ObjectReference type="BuiltInTypeReference">
-        <Name>void</Name>
-      </ObjectReference>
-      <ObjectReference type="ClassReference">
-        <Name>Shape</Name>
-      </ObjectReference>
+      <ObjectReference type="BuiltInTypeReference" name="bool" />
+      <ObjectReference type="BuiltInTypeReference" name="byte" />
+      <ObjectReference type="BuiltInTypeReference" name="char" />
+      <ObjectReference type="BuiltInTypeReference" name="decimal" />
+      <ObjectReference type="BuiltInTypeReference" name="double" />
+      <ObjectReference type="BuiltInTypeReference" name="float" />
+      <ObjectReference type="BuiltInTypeReference" name="int" />
+      <ObjectReference type="BuiltInTypeReference" name="long" />
+      <ObjectReference type="BuiltInTypeReference" name="object" />
+      <ObjectReference type="BuiltInTypeReference" name="sbyte" />
+      <ObjectReference type="BuiltInTypeReference" name="short" />
+      <ObjectReference type="BuiltInTypeReference" name="string" />
+      <ObjectReference type="BuiltInTypeReference" name="uint" />
+      <ObjectReference type="BuiltInTypeReference" name="ulong" />
+      <ObjectReference type="BuiltInTypeReference" name="ushort" />
+      <ObjectReference type="BuiltInTypeReference" name="void" />
+      <ObjectReference type="ClassReference" name="Shape" />
     </ObjectReferenceCollection>
   </ObjectReferences>
 </Project>

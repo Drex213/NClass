@@ -46,10 +46,10 @@ namespace NClass.Core.ObjectReferences
 
         public virtual void Deserialize(XmlElement node)
         {
-            var nameNode = node["Name"];
-            if (nameNode == null)
-                throw new InvalidDataException("ObjectReference's Name element is missing.");
-            Name = nameNode.InnerText;
+            var nameAttribute = node.Attributes["name"];
+            if (nameAttribute == null)
+                throw new InvalidDataException("ObjectReference's Name attribute is missing.");
+            Name = nameAttribute.InnerText;
         }
 
         public virtual void Serialize(XmlElement node)
@@ -58,9 +58,9 @@ namespace NClass.Core.ObjectReferences
             typeAttribute.InnerText = GetType().Name;
             node.Attributes.Append(typeAttribute);
 
-            XmlElement nameElement = node.OwnerDocument.CreateElement("Name");
-            nameElement.InnerText = Name;
-            node.AppendChild(nameElement);
+            XmlAttribute nameAttribute = node.OwnerDocument.CreateAttribute("name");
+            nameAttribute.InnerText = Name;
+            node.Attributes.Append(nameAttribute);
         }
 
         private void OnModified(EventArgs e)
