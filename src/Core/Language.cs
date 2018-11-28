@@ -18,6 +18,7 @@ using System.Reflection;
 using System.Xml.Serialization;
 using System.Collections.Generic;
 using NClass.Translations;
+using NClass.Core.Entities;
 
 namespace NClass.Core
 {
@@ -271,15 +272,17 @@ namespace NClass.Core
 		/// </exception>
 		protected internal abstract EnumType CreateEnum();
 
-		/// <exception cref="InvalidOperationException">
-		/// The language does not support delegates.
-		/// </exception>
-		protected internal abstract DelegateType CreateDelegate();
+        /// <exception cref="InvalidOperationException">
+        /// The language does not support delegates.
+        /// </exception>
+        protected internal abstract DelegateType CreateDelegate();
 
-		protected internal abstract ArgumentList CreateParameterCollection();
+        protected internal abstract ArgumentList CreateParameterCollection();
+
+        protected internal abstract ExternalType CreateExternalType(string name);
 
 
-		public abstract string GetAccessString(AccessModifier access, bool forCode);
+        public abstract string GetAccessString(AccessModifier access, bool forCode);
 
 		public abstract string GetFieldModifierString(FieldModifier modifier, bool forCode);
 

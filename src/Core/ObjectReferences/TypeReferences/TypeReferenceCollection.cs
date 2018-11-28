@@ -19,13 +19,18 @@ namespace NClass.Core.ObjectReferences.TypeReferences
         public TypeReferenceCollection(Language language)
         {
             Language = language;
-            var references = language.TypeKeywords.Select(rn => new BuiltInTypeReference(new ExternalType(rn)));
+            var references = language.TypeKeywords.Select(rn => new BuiltInTypeReference(Language.CreateExternalType(rn)));
             ObjectReferences.AddRange(references);
         }
 
         public Language Language { get; set; }
 
         public override string Name => $"{Strings.LanguageTypes} ({Language.Name})";
+
+        public ExternalTypeReference CreateNewExternalType(string name)
+        {
+            return new ExternalTypeReference(Language.CreateExternalType(name));
+        }
 
         public override void Deserialize(XmlElement node)
         {

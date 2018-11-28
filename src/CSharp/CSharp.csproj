@@ -66,6 +66,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CSharpEnumValue.cs" />
+    <Compile Include="CSharpExternal.cs" />
     <Compile Include="CSharpLanguage.cs" />
     <Compile Include="CSharpArgumentList.cs" />
     <Compile Include="CSharpClass.cs" />

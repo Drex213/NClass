@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 using NClass.Core;
 using NClass.Translations;
+using NClass.Core.Entities;
 
 namespace NClass.Java
 {
@@ -529,10 +530,10 @@ namespace NClass.Java
 			return new JavaEnum();
 		}
 
-		/// <exception cref="InvalidOperationException">
-		/// The language does not support delegates.
-		/// </exception>
-		protected override DelegateType CreateDelegate()
+        /// <exception cref="InvalidOperationException">
+        /// The language does not support delegates.
+        /// </exception>
+        protected override DelegateType CreateDelegate()
 		{
 			throw new InvalidOperationException(
 				string.Format(Strings.ErrorCannotCrateDelegate, Name));
@@ -541,6 +542,11 @@ namespace NClass.Java
 		protected override ArgumentList CreateParameterCollection()
 		{
 			return new JavaArgumentList();
-		}
-	}
+        }
+
+        protected override ExternalType CreateExternalType(string name)
+        {
+            return new JavaExternal(name);
+        }
+    }
 }

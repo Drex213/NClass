@@ -70,6 +70,7 @@
     <Compile Include="JavaClass.cs" />
     <Compile Include="JavaConstructor.cs" />
     <Compile Include="JavaEnum.cs" />
+    <Compile Include="JavaExternal.cs" />
     <Compile Include="JavaField.cs" />
     <Compile Include="JavaInterface.cs" />
     <Compile Include="JavaLanguage.cs" />

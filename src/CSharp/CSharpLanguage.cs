@@ -20,6 +20,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using NClass.Core;
 using NClass.Translations;
+using NClass.Core.Entities;
 
 namespace NClass.CSharp
 {
@@ -607,5 +608,10 @@ namespace NClass.CSharp
 		{
 			return new CSharpArgumentList();
 		}
-	}
+
+        protected override ExternalType CreateExternalType(string name)
+        {
+            return new CSharpExternal(name);
+        }
+    }
 }

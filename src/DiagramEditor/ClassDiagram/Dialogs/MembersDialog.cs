@@ -509,7 +509,7 @@ namespace NClass.DiagramEditor.ClassDiagram.Dialogs
         private void CreateNewObjectReference()
         {
             var name = cboType.Text;
-            var reference = new ExternalTypeReference(new ExternalType(name));
+            var reference = typeReferenceCollection.CreateNewExternalType(name);
             project.Add(reference, typeReferenceCollection);
         }
 
