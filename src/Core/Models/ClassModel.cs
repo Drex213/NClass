@@ -51,7 +51,7 @@ namespace NClass.Core.Models
         {
             ClassType newClass = Language.CreateClass();
             AddEntity(newClass);
-            AddObjectReference(new ClassReference(newClass));
+            AddObjectReference(ObjectReference.Create(newClass));
             return newClass;
         }
 
@@ -62,7 +62,7 @@ namespace NClass.Core.Models
         {
             StructureType structure = Language.CreateStructure();
             AddEntity(structure);
-            AddObjectReference(new StructureReference(structure));
+            AddObjectReference(ObjectReference.Create(structure));
             return structure;
         }
 
@@ -70,7 +70,7 @@ namespace NClass.Core.Models
         {
             InterfaceType newInterface = Language.CreateInterface();
             AddEntity(newInterface);
-            AddObjectReference(new InterfaceReference(newInterface));
+            AddObjectReference(ObjectReference.Create(newInterface));
             return newInterface;
         }
 
@@ -78,7 +78,7 @@ namespace NClass.Core.Models
         {
             EnumType newEnum = Language.CreateEnum();
             AddEntity(newEnum);
-            AddObjectReference(new EnumReference(newEnum));
+            AddObjectReference(ObjectReference.Create(newEnum));
             return newEnum;
         }
 
@@ -90,7 +90,7 @@ namespace NClass.Core.Models
         {
             DelegateType newDelegate = Language.CreateDelegate();
             AddEntity(newDelegate);
-            AddObjectReference(new DelegateReference(newDelegate));
+            AddObjectReference(ObjectReference.Create(newDelegate));
             return newDelegate;
         }
 

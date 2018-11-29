@@ -1,3 +1,4 @@
+using NClass.Core.ObjectReferences.TypeReferences;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -25,6 +26,28 @@ namespace NClass.Core.ObjectReferences
             return (ObjectReference)Activator.CreateInstance(targetType);
         }
 
+        public static ObjectReference Create(IEntity element)
+        {
+            var typeBase = element as TypeBase;
+
+            if (element is ClassType)
+                return new ClassReference(typeBase);
+
+            if (element is DelegateType)
+                return new DelegateReference(typeBase);
+
+            if (element is EnumType)
+                return new EnumReference(typeBase);
+
+            if (element is InterfaceType)
+                return new InterfaceReference(typeBase);
+
+            if (element is StructureType)
+                return new StructureReference(typeBase);
+
+            throw new ArgumentException($"An ObjectReference with typename of '{element.GetType().Name}' cannot be instanciated.");
+        }
+
         protected List<Element> referredElements = new List<Element>();
 
         public event EventHandler Modified;
@@ -35,14 +58,19 @@ namespace NClass.Core.ObjectReferences
 
         public ObjectReference(TypeBase element)
         {
-            referredElements.Add(element);
             Name = element.Name;
-            element.Modified += Element_Modified;
+            AddReferredElement(element);
         }
 
         public string Name { get; protected set; }
 
         public virtual string IconImageKey => "type-builtin";
+
+        public void AddReferredElement(TypeBase element)
+        {
+            referredElements.Add(element);
+            element.Modified += Element_Modified;
+        }
 
         public virtual void Deserialize(XmlElement node)
         {

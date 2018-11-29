@@ -12,6 +12,24 @@ namespace NClass.Core.Entities
         {
         }
 
+        public override string Name
+        {
+            get
+            {
+                return name;
+            }
+            set
+            {
+                string newName = value;
+
+                if (newName != name)
+                {
+                    name = newName;
+                    Changed();
+                }
+            }
+        }
+
         public override EntityType EntityType => EntityType.External;
 
         public override string Stereotype => "«external»";

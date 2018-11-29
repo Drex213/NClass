@@ -145,6 +145,7 @@ namespace NClass.DiagramEditor.Diagrams
 	            {
 	                this.model.Project = value;
 	                this.project = value;
+                    RegisterObjectReferences();
 	            }
 	        }
         }
@@ -1812,5 +1813,7 @@ namespace NClass.DiagramEditor.Diagrams
             if (Renamed != null)
                 Renamed(this, e);
         }
+
+        protected abstract void RegisterObjectReferences();
     }
 }

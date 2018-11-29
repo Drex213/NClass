@@ -21,6 +21,8 @@ using System.Windows.Forms;
 using System.Xml;
 using NClass.Core;
 using NClass.Core.Models;
+using NClass.Core.ObjectReferences;
+using NClass.Core.ObjectReferences.TypeReferences;
 using NClass.DiagramEditor.ClassDiagram.Connections;
 using NClass.DiagramEditor.ClassDiagram.ContextMenus;
 using NClass.DiagramEditor.ClassDiagram.Shapes;
@@ -638,6 +640,30 @@ namespace NClass.DiagramEditor.ClassDiagram
         public override string GetShortDescription()
         {
             return Strings.Language + ": " + model.Language.ToString();
+        }
+
+        protected override void RegisterObjectReferences()
+        {
+            var typeReferenceCollection = (TypeReferenceCollection)Project.ObjectReferenceCollections
+                .Single(c => (c is TypeReferenceCollection) && (c as TypeReferenceCollection).Language == Language);
+
+            foreach (var entity in model.Entities)
+            {
+                if (entity is Comment)
+                    continue;
+
+                var name = entity.Name;
+                var typeReference = typeReferenceCollection.ObjectReferences.SingleOrDefault(r => r.Name == name);
+
+                if (typeReference == null)
+                {
+                    Project.Add(ObjectReference.Create(entity), typeReferenceCollection);
+                }
+                else
+                {
+                    typeReference.AddReferredElement(entity as TypeBase);
+                }
+            }
         }
     }
 

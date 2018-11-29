@@ -91,7 +91,7 @@ namespace NClass.DiagramEditor.ClassDiagram.Dialogs
             this.project = project;
             RegisterToProjectEvents();
             typeReferenceCollection = (TypeReferenceCollection)project.ObjectReferenceCollections
-                .First(c => (c is TypeReferenceCollection) && (c as TypeReferenceCollection).Language == parent.Language);
+                .Single(c => (c is TypeReferenceCollection) && (c as TypeReferenceCollection).Language == parent.Language);
             this.Text = string.Format(Strings.MembersOfType, parent.Name);
 
 			LanguageSpecificInitialization(parent.Language);

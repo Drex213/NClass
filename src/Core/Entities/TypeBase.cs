@@ -23,7 +23,7 @@ namespace NClass.Core
 {
 	public abstract class TypeBase : LanguageElement, IEntity
 	{
-		string name;
+		protected string name;
 		AccessModifier access = AccessModifier.Public;
 		CompositeType nestingParent = null;
 
