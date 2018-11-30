@@ -16,6 +16,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Xml;
 using NClass.Core.ObjectReferences;
 using NClass.Core.ObjectReferences.TypeReferences;
@@ -100,6 +101,12 @@ namespace NClass.Core.Models
             Comment comment = new Comment();
             AddEntity(comment);
             return comment;
+        }
+
+        protected override void AddEntity(IEntity entity)
+        {
+            ForceUniqueEntityName(entity);
+            base.AddEntity(entity);
         }
 
         private void AddRelationship(Relationship relationship)
@@ -359,6 +366,25 @@ namespace NClass.Core.Models
                 return;
 
             Project.Add(reference, objectReferenceCollection);
+        }
+
+        private void ForceUniqueEntityName(IEntity entity)
+        {
+            if (objectReferenceCollection == null)
+                return;
+
+            if (!(entity is TypeBase))
+                return;
+
+            var type = (TypeBase)entity;
+            var originalTypeName = type.Name;
+            var existingNumberMatchInName = Regex.Match(type.Name, @"\(\d*\)$");
+            var index = existingNumberMatchInName.Success ? int.Parse(existingNumberMatchInName.Value) + 1 : 1;
+            while (objectReferenceCollection.Contains(type.Name))
+            {
+                type.Name = originalTypeName + index;
+                index++;
+            }
         }
     }
 }

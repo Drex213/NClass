@@ -75,7 +75,7 @@ namespace NClass.Core
 			OnModified(e);
 		}
 
-		protected void AddEntity(IEntity entity)
+		protected virtual void AddEntity(IEntity entity)
 		{
 			entities.Add(entity);
 			entity.Modified += ElementChanged;
