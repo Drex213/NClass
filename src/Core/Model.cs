@@ -88,6 +88,7 @@ namespace NClass.Core
 			{
 				entity.Modified -= ElementChanged;
 				RemoveRelationships(entity);
+                entity.PrepareForRemoval();
 				OnEntityRemoved(new EntityEventArgs(entity));
 			}
 		}

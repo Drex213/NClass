@@ -403,6 +403,15 @@ namespace NClass.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There are referred objects on a diagram. Please delete them from the diagram first..
+        /// </summary>
+        public static string CannotDeleteObjectReference {
+            get {
+                return ResourceManager.GetString("CannotDeleteObjectReference", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to If you change the inheritance modifier to abstract, the parent class will also become abstract. Do you want to continue?.
         /// </summary>
         public static string ChangingToAbstractConfirmation {
@@ -2970,6 +2979,15 @@ namespace NClass.Translations {
         public static string VisitHomepage {
             get {
                 return ResourceManager.GetString("VisitHomepage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warning.
+        /// </summary>
+        public static string Warning {
+            get {
+                return ResourceManager.GetString("Warning", resourceCulture);
             }
         }
         

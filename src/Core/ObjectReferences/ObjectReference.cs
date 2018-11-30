@@ -52,6 +52,8 @@ namespace NClass.Core.ObjectReferences
 
         public event EventHandler Modified;
 
+        public event EventHandler Removed;
+
         public ObjectReference()
         {
         }
@@ -66,10 +68,30 @@ namespace NClass.Core.ObjectReferences
 
         public virtual string IconImageKey => "type-builtin";
 
+        public bool TryDelete()
+        {
+            if (referredElements.Count > 0)
+                return false;
+
+            OnRemoved(EventArgs.Empty);
+            return true;
+        }
+
         public void AddReferredElement(TypeBase element)
         {
             referredElements.Add(element);
             element.Modified += Element_Modified;
+            element.Removed += Element_Removed;
+        }
+
+        private void RemoveReferredElement(TypeBase element)
+        {
+            element.Removed -= Element_Removed;
+            element.Modified -= Element_Modified;
+            referredElements.Remove(element);
+
+            if (referredElements.Count == 0)
+                OnRemoved(EventArgs.Empty);
         }
 
         public virtual void Deserialize(XmlElement node)
@@ -93,8 +115,12 @@ namespace NClass.Core.ObjectReferences
 
         private void OnModified(EventArgs e)
         {
-            if (Modified != null)
-                Modified(this, e);
+            Modified?.Invoke(this, e);
+        }
+
+        private void OnRemoved(EventArgs e)
+        {
+            Removed?.Invoke(this, e);
         }
 
         private void Element_Modified(object sender, EventArgs e)
@@ -102,6 +128,12 @@ namespace NClass.Core.ObjectReferences
             var element = (TypeBase)sender;
             Name = element.Name;
             OnModified(EventArgs.Empty);
+        }
+
+        private void Element_Removed(object sender, EventArgs e)
+        {
+            var element = (TypeBase)sender;
+            RemoveReferredElement(element);
         }
     }
 }

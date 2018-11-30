@@ -29,6 +29,7 @@ namespace NClass.GUI.ModelExplorer
             SelectedImageKey = objectReference.IconImageKey;
             ObjectReference = objectReference;
             objectReference.Modified += ObjectReference_Modified;
+            objectReference.Removed += ObjectReference_Removed;
         }
 
         public ObjectReference ObjectReference { get; }
@@ -50,16 +51,29 @@ namespace NClass.GUI.ModelExplorer
         {
             var menuItem = (ToolStripItem)sender;
             var referenceNode = (ObjectReferenceNode)menuItem.Owner.Tag;
-            var collectionNode = (ObjectReferenceCollectionNode)referenceNode.Parent;
-            var objectsNode = (ObjectReferencesNode)collectionNode.Parent;
-            var projectNode = (ProjectNode)objectsNode.Parent;
-            projectNode.Project.Remove(referenceNode.ObjectReference, collectionNode.ObjectReferenceCollection);
+
+            var success = referenceNode.ObjectReference.TryDelete();
+            if (success)
+                return;
+
+            DialogResult result = MessageBox.Show(
+                    Strings.CannotDeleteObjectReference, Strings.Warning,
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         private void ObjectReference_Modified(object sender, EventArgs e)
         {
             var reference = (ObjectReference)sender;
             Text = reference.Name;
+        }
+
+        private void ObjectReference_Removed(object sender, EventArgs e)
+        {
+            var reference = (ObjectReference)sender;
+            reference.Modified -= ObjectReference_Modified;
+            reference.Removed -= ObjectReference_Removed;
+
+            Parent.Nodes.Remove(this);
         }
     }
 }

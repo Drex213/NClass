@@ -72,6 +72,7 @@
     <Compile Include="BadSyntaxException.cs" />
     <Compile Include="Entities\ExternalType.cs" />
     <Compile Include="Entities\EntityType.cs" />
+    <Compile Include="IRemovable.cs" />
     <Compile Include="Members\MemberType.cs" />
     <Compile Include="Models\ClassModel.cs" />
     <Compile Include="ObjectReferenceEventArgs.cs" />

@@ -235,18 +235,6 @@ namespace NClass.Core
 			}
 		}
 
-        public void Remove(ObjectReferenceCollection collection)
-        {
-            ObjectReferenceCollections.Remove(collection);
-            OnObjectReferenceCollectionRemoved(new ObjectReferenceEventArgs(collection));
-        }
-
-        public void Remove(ObjectReference reference, ObjectReferenceCollection parentCollection)
-        {
-            parentCollection.ObjectReferences.Remove(reference);
-            OnObjectReferenceRemoved(new ObjectReferenceEventArgs(parentCollection, reference));
-        }
-
         private void item_Modified(object sender, EventArgs e)
 		{
 			isDirty = true;
@@ -541,22 +529,10 @@ namespace NClass.Core
                 ObjectReferenceCollectionAdded(this, e);
         }
 
-        private void OnObjectReferenceCollectionRemoved(ObjectReferenceEventArgs e)
-        {
-            if (ObjectReferenceCollectionRemoved != null)
-                ObjectReferenceCollectionRemoved(this, e);
-        }
-
         private void OnObjectReferenceAdded(ObjectReferenceEventArgs e)
         {
             if (ObjectReferenceAdded != null)
                 ObjectReferenceAdded(this, e);
-        }
-
-        private void OnObjectReferenceRemoved(ObjectReferenceEventArgs e)
-        {
-            if (ObjectReferenceRemoved != null)
-                ObjectReferenceRemoved(this, e);
         }
 
         private void OnFileStateChanged(EventArgs e)

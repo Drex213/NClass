@@ -18,7 +18,7 @@ using System.Xml;
 
 namespace NClass.Core
 {
-	public interface IEntity : ISerializableElement, IModifiable
+	public interface IEntity : ISerializableElement, IModifiable, IRemovable
 	{
 		string Name
 		{

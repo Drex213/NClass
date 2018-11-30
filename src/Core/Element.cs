@@ -26,6 +26,8 @@ namespace NClass.Core
 
 		public event EventHandler Modified;
 
+        public event EventHandler Removed;
+
 		public bool IsDirty
 		{
 			get { return isDirty; }
@@ -36,6 +38,11 @@ namespace NClass.Core
 			isDirty = false;
 			//TODO: tagok tisztítása
 		}
+
+        public virtual void PrepareForRemoval()
+        {
+            OnRemoved(EventArgs.Empty);
+        }
 
 		protected bool Initializing
 		{
@@ -75,8 +82,12 @@ namespace NClass.Core
 		private void OnModified(EventArgs e)
 		{
 			isDirty = true;
-			if (Modified != null)
-				Modified(this, e);
-		}
-	}
+            Modified?.Invoke(this, e);
+        }
+
+        private void OnRemoved(EventArgs e)
+        {
+            Removed?.Invoke(this, e);
+        }
+    }
 }
