@@ -21,6 +21,7 @@ using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 using System.Xml;
 using NClass.Core;
+using NClass.Core.ObjectReferences;
 using NClass.DiagramEditor.ClassDiagram;
 using NClass.DiagramEditor.ClassDiagram.Connections;
 using NClass.DiagramEditor.ClassDiagram.Dialogs;
@@ -169,6 +170,8 @@ namespace NClass.DiagramEditor.Diagrams
 		{
 			get { return connections; }
 		}
+
+        public ObjectReferenceCollection ObjectReferenceCollection { get; protected set; }
 
 		public Point Offset
 		{

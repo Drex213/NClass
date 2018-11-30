@@ -644,7 +644,7 @@ namespace NClass.DiagramEditor.ClassDiagram
 
         protected override void RegisterObjectReferences()
         {
-            var typeReferenceCollection = (TypeReferenceCollection)Project.ObjectReferenceCollections
+            ObjectReferenceCollection = Project.ObjectReferenceCollections
                 .Single(c => (c is TypeReferenceCollection) && (c as TypeReferenceCollection).Language == Language);
 
             foreach (var entity in model.Entities)
@@ -653,11 +653,11 @@ namespace NClass.DiagramEditor.ClassDiagram
                     continue;
 
                 var name = entity.Name;
-                var typeReference = typeReferenceCollection.ObjectReferences.SingleOrDefault(r => r.Name == name);
+                var typeReference = ObjectReferenceCollection.ObjectReferences.SingleOrDefault(r => r.Name == name);
 
                 if (typeReference == null)
                 {
-                    Project.Add(ObjectReference.Create(entity), typeReferenceCollection);
+                    Project.Add(ObjectReference.Create(entity), ObjectReferenceCollection);
                 }
                 else
                 {

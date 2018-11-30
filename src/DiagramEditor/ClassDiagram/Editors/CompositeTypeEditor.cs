@@ -315,6 +315,12 @@ namespace NClass.DiagramEditor.ClassDiagram.Editors
 		{
 			if (needValidation)
 			{
+                if (shape.Diagram.ObjectReferenceCollection.Contains(txtName.Text))
+                {
+                    SetError(Strings.ErrorForbiddenTypeName);
+                    return false;
+                }
+
 				try
 				{
 					shape.CompositeType.Name = txtName.Text;

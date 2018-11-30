@@ -17,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using NClass.Core;
+using NClass.Core.ObjectReferences;
 using NClass.DiagramEditor.ClassDiagram.Connections;
 using NClass.DiagramEditor.Diagrams.Connections;
 using NClass.DiagramEditor.Diagrams.Shapes;
@@ -27,6 +28,7 @@ namespace NClass.DiagramEditor.Diagrams
     {
         IEnumerable<Shape> Shapes { get; }
         IEnumerable<Connection> Connections { get; }
+        ObjectReferenceCollection ObjectReferenceCollection { get; }
         DiagramType DiagramType { get; }
         int SelectedElementCount { get; }
         DiagramElement TopSelectedElement { get; }

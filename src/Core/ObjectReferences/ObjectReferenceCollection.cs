@@ -16,6 +16,11 @@ namespace NClass.Core.ObjectReferences
 
         public abstract string Name { get; }
 
+        public bool Contains(string name)
+        {
+            return ObjectReferences.Any(r => r.Name == name);
+        }
+
         public abstract void Deserialize(XmlElement node);
 
         public abstract void Serialize(XmlElement node);
