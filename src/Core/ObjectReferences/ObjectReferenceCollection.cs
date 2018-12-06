@@ -12,13 +12,34 @@ namespace NClass.Core.ObjectReferences
     [DebuggerDisplay("{Name}")]
     public abstract class ObjectReferenceCollection
     {
-        public List<ObjectReference> ObjectReferences { get; set; } = new List<ObjectReference>();
+        public List<ObjectReference> ObjectReferences { get; private set; } = new List<ObjectReference>();
 
         public abstract string Name { get; }
 
         public bool Contains(string name)
         {
             return ObjectReferences.Any(r => r.Name == name);
+        }
+
+        public void Add(ObjectReference objectReference)
+        {
+            ObjectReferences.Add(objectReference);
+            objectReference.Removed += ObjectReference_Removed;
+        }
+
+        public void AddRange(IEnumerable<ObjectReference> objectReferences)
+        {
+            foreach (var reference in objectReferences)
+            {
+                Add(reference);
+            }
+        }
+
+        private void ObjectReference_Removed(object sender, EventArgs e)
+        {
+            var objectReference = (ObjectReference)sender;
+            objectReference.Removed -= ObjectReference_Removed;
+            ObjectReferences.Remove(objectReference);
         }
 
         public abstract void Deserialize(XmlElement node);

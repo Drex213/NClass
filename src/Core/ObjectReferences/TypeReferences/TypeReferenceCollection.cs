@@ -20,7 +20,7 @@ namespace NClass.Core.ObjectReferences.TypeReferences
         {
             Language = language;
             var references = language.TypeKeywords.Select(rn => new BuiltInTypeReference(Language.CreateExternalType(rn)));
-            ObjectReferences.AddRange(references);
+            AddRange(references);
         }
 
         public Language Language { get; set; }
@@ -49,7 +49,7 @@ namespace NClass.Core.ObjectReferences.TypeReferences
 
                 var reference = ObjectReference.Create(typeAttribute.InnerText);
                 reference.Deserialize(typeReferenceElement);
-                ObjectReferences.Add(reference);
+                Add(reference);
             }
         }
 

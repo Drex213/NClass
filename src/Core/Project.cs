@@ -220,7 +220,7 @@ namespace NClass.Core
 
         public void Add(ObjectReference reference, ObjectReferenceCollection parentCollection)
         {
-            parentCollection.ObjectReferences.Add(reference);
+            parentCollection.Add(reference);
             OnObjectReferenceAdded(new ObjectReferenceEventArgs(parentCollection, reference));
         }
 

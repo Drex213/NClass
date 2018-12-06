@@ -85,6 +85,9 @@
       <ObjectReference type="BuiltInTypeReference" name="ushort" />
       <ObjectReference type="BuiltInTypeReference" name="void" />
       <ObjectReference type="ClassReference" name="Shape" />
+      <ObjectReference type="ClassReference" name="Circle" />
+      <ObjectReference type="ClassReference" name="Square" />
+      <ObjectReference type="InterfaceReference" name="IDrawable" />
     </ObjectReferenceCollection>
   </ObjectReferences>
 </Project>
